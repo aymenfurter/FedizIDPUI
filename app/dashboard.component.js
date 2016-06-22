@@ -9,20 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var dashboard_component_1 = require('./dashboard.component');
 var router_1 = require('@angular/router');
-var AppComponent = (function () {
-    function AppComponent() {
+var DashboardComponent = (function () {
+    function DashboardComponent() {
     }
-    AppComponent = __decorate([
+    DashboardComponent = __decorate([
         core_1.Component({
-            selector: 'init-app',
-            template: "<div class=\"row\">                    \n    \t\t\t<router-outlet></router-outlet>\n              </div>",
-            directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES]
+            selector: 'dashboard',
+            template: "        \n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Welcome</h1>\n        </div>\n        <div class=\"content\">\n            Welcome to the Fediz IDP Administration UI. Later on, we will show some fance statistics here!\n            <a [routerLink]=\"['/claims']\"><i class=\"fa fa-fw\"></i> Go to Roles</a>\n        </div>",
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], DashboardComponent);
+    return DashboardComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.DashboardComponent = DashboardComponent;
+//# sourceMappingURL=dashboard.component.js.map
