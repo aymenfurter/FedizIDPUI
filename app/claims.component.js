@@ -21,7 +21,7 @@ var ClaimsComponent = (function () {
     ClaimsComponent = __decorate([
         core_1.Component({
             selector: 'claims',
-            template: "        hehehhe\n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Claims</h1>\n        </div>\n        <div class=\"content\">\n            <ul class=\"contacts\">\n                <li *ngFor=\"#entry of entries\" (click)=\"onSelect(contact)\" [class.selected]=\"contact === selectedContact\">\n                    {{entry.claimType}}\n                </li>\n            </ul>            \n        </div>",
+            template: "        \n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Claims</h1>\n        </div>\n        <div class=\"content\">\n            <ul class=\"contacts\">\n                <li *ngFor=\"#entry of entries\" (click)=\"onSelect(contact)\" [class.selected]=\"contact === selectedContact\">\n                    {{entry.claimType}}\n                </li>\n            </ul>            \n        </div>",
             providers: [claims_service_1.ClaimsService],
         }), 
         __metadata('design:paramtypes', [claims_service_1.ClaimsService])
