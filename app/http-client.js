@@ -22,7 +22,6 @@ var HttpClient = (function () {
     HttpClient.prototype.get = function (url) {
         var headers = new http_1.Headers();
         this.createAuthorizationHeader(headers);
-        console.log("yay!");
         return this.http.get(url, {
             headers: headers
         });
@@ -31,6 +30,13 @@ var HttpClient = (function () {
         var headers = new http_1.Headers();
         this.createAuthorizationHeader(headers);
         return this.http.post(url, data, {
+            headers: headers
+        });
+    };
+    HttpClient.prototype.put = function (url, data) {
+        var headers = new http_1.Headers();
+        this.createAuthorizationHeader(headers);
+        return this.http.put(url, data, {
             headers: headers
         });
     };

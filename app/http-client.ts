@@ -17,8 +17,7 @@ export class HttpClient {
 
   get(url) {
     let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-    console.log("yay!");
+    this.createAuthorizationHeader(headers);    
     return this.http.get(url, {
       headers: headers
     });
@@ -28,6 +27,15 @@ export class HttpClient {
     let headers = new Headers();
     this.createAuthorizationHeader(headers);
     return this.http.post(url, data, {
+      headers: headers
+    });
+  }
+
+
+  put(url, data) {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this.http.put(url, data, {
       headers: headers
     });
   }

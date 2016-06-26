@@ -10,21 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var claims_service_1 = require('./claims-service');
+var router_1 = require('@angular/router');
 var ClaimsComponent = (function () {
-    function ClaimsComponent(claimsService) {
+    function ClaimsComponent(claimsService, router) {
         this.claimsService = claimsService;
+        this.router = router;
     }
     ClaimsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.claimsService.findAll().subscribe(function (data) { return _this.entries = data.claims; });
+    };
+    ClaimsComponent.prototype.onSelect = function (claim) {
+        this.router.navigate(['/claim', encodeURIComponent(claim.claimType)]);
+    };
+    ClaimsComponent.prototype.onCreate = function () {
+        this.router.navigate(['/create-claim']);
     };
     ClaimsComponent = __decorate([
         core_1.Component({
             selector: 'claims',
             templateUrl: 'app/templates/claims.component.template.list.html',
             providers: [claims_service_1.ClaimsService],
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [claims_service_1.ClaimsService])
+        __metadata('design:paramtypes', [claims_service_1.ClaimsService, router_1.Router])
     ], ClaimsComponent);
     return ClaimsComponent;
 }());

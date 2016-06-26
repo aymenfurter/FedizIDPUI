@@ -12,13 +12,28 @@ var core_1 = require('@angular/core');
 var http_client_1 = require('./http-client');
 var Observable_1 = require('rxjs/Observable');
 require('rxjs/Rx');
-var entries = [], baseURL = "http://localhost:8080/" + '/fediz-idp/services/rs/claims';
+var entries = [], baseURL = "http://localhost:8080/fediz-idp/services/rs/", claimsURL = baseURL + 'claims?size=50', claimURL = baseURL + 'claims/';
 var ClaimsService = (function () {
     function ClaimsService(httpClient) {
         this.httpClient = httpClient;
     }
     ClaimsService.prototype.findAll = function () {
-        return this.httpClient.get(baseURL)
+        return this.httpClient.get(claimsURL)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    ClaimsService.prototype.find = function (id) {
+        return this.httpClient.get(claimURL + id)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    ClaimsService.prototype.persist = function (claim) {
+        return this.httpClient.put(claimURL + claim.claimType, claim)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    ClaimsService.prototype.create = function (claim) {
+        return this.httpClient.post(claimURL, claim)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

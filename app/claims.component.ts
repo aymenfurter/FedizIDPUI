@@ -1,17 +1,18 @@
 import {Component} from '@angular/core';
 import {ClaimsService} from './claims-service';
 import {Claim} from './claim';
-
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 
 @Component({
     selector: 'claims',  
     templateUrl: 'app/templates/claims.component.template.list.html' ,    
     providers: [ClaimsService],
+    directives: [ROUTER_DIRECTIVES]
 })
 export class ClaimsComponent {
     private entries: Claim;
- 
-    constructor(private claimsService:ClaimsService) {        
+     
+    constructor(private claimsService:ClaimsService, private router: Router) {        
     }
  
     ngOnInit() {
@@ -19,5 +20,14 @@ export class ClaimsComponent {
             data => this.entries = data.claims
         );
     }    
+
+    onSelect(claim: Claim) {
+        this.router.navigate(['/claim', encodeURIComponent(claim.claimType)]);
+    }
+  
+
+    onCreate() {
+        this.router.navigate(['/create-claim']);
+    }
  
 }

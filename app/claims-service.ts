@@ -3,23 +3,44 @@ import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient} from './http-client';
 import {Observable} from 'rxjs/Observable';
+import {Claim} from './claim';
 import 'rxjs/Rx';
  
 let entries = [],
-    baseURL: string = "http://localhost:8080/" + '/fediz-idp/services/rs/claims'    
+    baseURL: string = "http://localhost:8080/fediz-idp/services/rs/",
+    claimsURL: string = baseURL + 'claims?size=50',
+    claimURL: string = baseURL + 'claims/';    
  
 @Injectable()
 export class ClaimsService {
    private httpClient : HttpClient;
 
     constructor(httpClient: HttpClient) {
-    this.httpClient = httpClient;
-  }
+        this.httpClient = httpClient;
+    }
  
     findAll() {
-        return this.httpClient.get(baseURL)
+        return this.httpClient.get(claimsURL)
             .map((res: any) => res.json())
             .catch(this.handleError);
+    }
+
+    find(id: string) {
+        return this.httpClient.get(claimURL + id)
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
+    }
+
+    persist(claim: Claim) {
+        return this.httpClient.put(claimURL + claim.claimType, claim)
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
+    }
+
+    create(claim: Claim) {
+        return this.httpClient.post(claimURL, claim)
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
     }
  
     /*favorite(property) {
@@ -31,7 +52,7 @@ export class ClaimsService {
             .catch(this.handleError);
     }*/
  
-    handleError(error) {
+    handleError(error) {        
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }

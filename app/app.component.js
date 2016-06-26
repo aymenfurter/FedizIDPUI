@@ -9,7 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var claims_component_edit_1 = require('./claims.component.edit');
 var dashboard_component_1 = require('./dashboard.component');
+var navigation_component_1 = require('./navigation.component');
 var router_1 = require('@angular/router');
 var AppComponent = (function () {
     function AppComponent() {
@@ -17,8 +19,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'init-app',
-            template: "<div class=\"row\">                    \n    \t\t\t<router-outlet></router-outlet>\n              </div>",
-            directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES]
+            templateUrl: 'app/templates/app.component.template.html',
+            directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES, navigation_component_1.NavigationComponent, claims_component_edit_1.ClaimEditComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

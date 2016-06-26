@@ -10,16 +10,23 @@
                         <th>Claim type</th>
                         <th>Description</th>
                         <th>Display name</th>
-                    </tr>
+                        <th>Operations</th>
+                    </tr> 
                 </thead>
                 <tbody>
-                    <tr *ngFor="#entry of entries" (click)="onSelect(contact)" [class.selected]="contact === selectedContact">                
-                        <td>{{entry.claimType}}</td>
+                    <tr *ngFor="#entry of entries | paginate: { itemsPerPage: 10, currentPage: page }">
+                         <td>{{entry.claimType}}</td>
                         <td>{{entry.description}}</td>
                         <td>{{entry.displayName}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" (click)="onSelect(entry)"><i class="fa  fa-edit"></i>  Edit</button>
+                            <button class="btn btn-danger btn-" type="button"><i class="fa  fa-times"></i> Delete</button>
+                        </td>
                     </tr>            
                 </tbody>
             </table>
+
+            <p><button type="button" class="btn btn-primary" (click)="onCreate()">Add new entry</button></p>
         </div>
     </div>
 </div>
