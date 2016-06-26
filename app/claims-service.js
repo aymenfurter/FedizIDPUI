@@ -37,6 +37,11 @@ var ClaimsService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    ClaimsService.prototype.remove = function (claim) {
+        return this.httpClient.delete(claimURL + claim.claimType, claim)
+            .map(function (res) { return res.json(); })
+            .catch(this.handlePlaceboError);
+    };
     /*favorite(property) {
         let body = JSON.stringify(property);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -45,6 +50,9 @@ var ClaimsService = (function () {
             .map((res: any) => res.json())
             .catch(this.handleError);
     }*/
+    // Fediz IDP returns 204 for DELETE Requests..
+    ClaimsService.prototype.handlePlaceboError = function (error) {
+    };
     ClaimsService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

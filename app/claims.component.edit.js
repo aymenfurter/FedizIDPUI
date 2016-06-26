@@ -12,8 +12,6 @@ var core_1 = require('@angular/core');
 var claim_1 = require('./claim');
 var router_1 = require('@angular/router');
 var claims_service_1 = require('./claims-service');
-var core_2 = require("@angular/core");
-var ng2_pagination_1 = require('../node_modules/ng2-pagination');
 var ClaimEditComponent = (function () {
     function ClaimEditComponent(route, router, service) {
         this.route = route;
@@ -55,10 +53,7 @@ var ClaimEditComponent = (function () {
         core_1.Component({
             selector: 'claim-form',
             templateUrl: 'app/templates/claims.component.template.edit.html',
-            providers: [claims_service_1.ClaimsService],
-            directives: [ng2_pagination_1.PaginationControlsCmp],
-            pipes: [ng2_pagination_1.PaginatePipe],
-            changeDetection: core_2.ChangeDetectionStrategy.OnPush
+            providers: [claims_service_1.ClaimsService]
         }), 
         __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, claims_service_1.ClaimsService])
     ], ClaimEditComponent);

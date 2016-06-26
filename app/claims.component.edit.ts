@@ -3,25 +3,17 @@ import { NgForm }    from '@angular/common';
 import { Claim }    from './claim';
 import { Router, ActivatedRoute }       from '@angular/router';
 import { ClaimsService } from './claims-service';
-import { NgForm }    from '@angular/common';
-import { ChangeDetectionStrategy, Input } from "@angular/core";
-import { PaginatePipe, PaginationControlsCmp } from '../node_modules/ng2-pagination';
 
 @Component({
   	selector: 'claim-form',
 	templateUrl: 'app/templates/claims.component.template.edit.html',
-	providers: [ClaimsService],
-	directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [ClaimsService]
 })
 export class ClaimEditComponent {  	
 	model = new Claim("", "", "");
 	createEntry = false;
-	submitted = false;
- 	
+	submitted = false; 	
   	private sub: any;
-
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: ClaimsService) {
 

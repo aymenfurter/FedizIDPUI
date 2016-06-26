@@ -42,6 +42,12 @@ export class ClaimsService {
             .map((res: any) => res.json())
             .catch(this.handleError);            
     }
+
+    remove (claim: Claim) {
+         return this.httpClient.delete(claimURL + claim.claimType, claim)
+            .map((res: any) => res.json())
+            .catch(this.handlePlaceboError);                               
+    }
  
     /*favorite(property) {
         let body = JSON.stringify(property);
@@ -52,9 +58,16 @@ export class ClaimsService {
             .catch(this.handleError);
     }*/
  
+
+    // Fediz IDP returns 204 for DELETE Requests..
+    handlePlaceboError(error) {      
+    }
+
     handleError(error) {        
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+
  
 }

@@ -26,6 +26,14 @@ export class ClaimsComponent {
     }
   
 
+    onRemove(claim: Claim) {
+        this.claimsService.remove(claim).subscribe(
+              this.claimsService.findAll().subscribe(
+                    data => this.entries = data.claims
+              )
+        );
+    }      
+
     onCreate() {
         this.router.navigate(['/create-claim']);
     }

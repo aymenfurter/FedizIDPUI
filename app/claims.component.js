@@ -23,6 +23,10 @@ var ClaimsComponent = (function () {
     ClaimsComponent.prototype.onSelect = function (claim) {
         this.router.navigate(['/claim', encodeURIComponent(claim.claimType)]);
     };
+    ClaimsComponent.prototype.onRemove = function (claim) {
+        var _this = this;
+        this.claimsService.remove(claim).subscribe(this.claimsService.findAll().subscribe(function (data) { return _this.entries = data.claims; }));
+    };
     ClaimsComponent.prototype.onCreate = function () {
         this.router.navigate(['/create-claim']);
     };
