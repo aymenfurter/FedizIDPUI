@@ -39,7 +39,7 @@ export class ApplicationsService {
             .map((res: any) => res.json())
             .catch(this.handleError);            
     }
-
+ 
     create(entry: Application) {
         return this.httpClient.post(entryURL, entry)
             .map((res: any) => res.json())

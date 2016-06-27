@@ -13,7 +13,7 @@ export class ApplicationsComponent {
     private entries: Application;
      
     constructor(private service:ApplicationsService, private router: Router) {        
-    }
+    } 
  
     ngOnInit() {
         this.service.findAll().subscribe(
