@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var claims_component_edit_1 = require('./claims.component.edit');
+var applications_component_edit_1 = require('./applications.component.edit');
 var dashboard_component_1 = require('./dashboard.component');
 var navigation_component_1 = require('./navigation.component');
 var router_1 = require('@angular/router');
@@ -20,7 +21,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'init-app',
             templateUrl: 'app/templates/app.component.template.html',
-            directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES, navigation_component_1.NavigationComponent, claims_component_edit_1.ClaimEditComponent]
+            directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES, navigation_component_1.NavigationComponent, claims_component_edit_1.ClaimEditComponent, applications_component_edit_1.ApplicationEditComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

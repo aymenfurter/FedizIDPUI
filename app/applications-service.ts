@@ -3,18 +3,19 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from './http-client';
 import { Observable } from 'rxjs/Observable';
-import { Claim } from './claim';
+import { Application } from './application';
 import { Consts } from './consts';
 import 'rxjs/Rx';
  
 let entries = [],
-    baseURL: string = Consts.URL_PREFIX,
-    urlIdentifier: string = "claims",
-    claimsURL: string = baseURL + urlIdentifier + '?size=' + Consts.LISTSIZE,
-    claimURL: string = baseURL + urlIdentifier + '/';    
+    urlIdentifier: string = "applications",
+
+    baseURL: string = Consts.URL_PREFIX,    
+    listURL: string = baseURL + urlIdentifier + '?size=' + Consts.LISTSIZE,
+    entryURL: string = baseURL + urlIdentifier + '/';    
  
 @Injectable()
-export class ClaimsService {
+export class ApplicationsService {
    private httpClient : HttpClient;
 
     constructor(httpClient: HttpClient) {
@@ -22,35 +23,34 @@ export class ClaimsService {
     }
  
     findAll() {
-        return this.httpClient.get(claimsURL)
+        return this.httpClient.get(listURL)
             .map((res: any) => res.json())
             .catch(this.handleError);
     }
 
     find(id: string) {
-        return this.httpClient.get(claimURL + id)
+        return this.httpClient.get(entryURL + id)
             .map((res: any) => res.json())
             .catch(this.handleError);            
     }
 
-    persist(claim: Claim) {
-        return this.httpClient.put(claimURL + claim.claimType, claim)
+    persist(entry: Application) {
+        return this.httpClient.put(entryURL + entry.realm, entry)
             .map((res: any) => res.json())
             .catch(this.handleError);            
     }
 
-    create(claim: Claim) {
-        return this.httpClient.post(claimURL, claim)
+    create(entry: Application) {
+        return this.httpClient.post(entryURL, entry)
             .map((res: any) => res.json())
             .catch(this.handleError);            
     }
 
-    remove (claim: Claim) {
-         return this.httpClient.delete(claimURL + claim.claimType, claim)
+    remove (entry: Application) {
+         return this.httpClient.delete(entryURL + entry.realm, entry)
             .map((res: any) => res.json())
             .catch(this.handlePlaceboError);                               
-    }
- 
+    } 
 
     // Fediz IDP returns 204 for DELETE Requests..
     handlePlaceboError(error) {      

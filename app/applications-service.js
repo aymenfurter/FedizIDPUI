@@ -13,48 +13,48 @@ var http_client_1 = require('./http-client');
 var Observable_1 = require('rxjs/Observable');
 var consts_1 = require('./consts');
 require('rxjs/Rx');
-var entries = [], baseURL = consts_1.Consts.URL_PREFIX, urlIdentifier = "claims", claimsURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, claimURL = baseURL + urlIdentifier + '/';
-var ClaimsService = (function () {
-    function ClaimsService(httpClient) {
+var entries = [], urlIdentifier = "applications", baseURL = consts_1.Consts.URL_PREFIX, listURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, entryURL = baseURL + urlIdentifier + '/';
+var ApplicationsService = (function () {
+    function ApplicationsService(httpClient) {
         this.httpClient = httpClient;
     }
-    ClaimsService.prototype.findAll = function () {
-        return this.httpClient.get(claimsURL)
+    ApplicationsService.prototype.findAll = function () {
+        return this.httpClient.get(listURL)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    ClaimsService.prototype.find = function (id) {
-        return this.httpClient.get(claimURL + id)
+    ApplicationsService.prototype.find = function (id) {
+        return this.httpClient.get(entryURL + id)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    ClaimsService.prototype.persist = function (claim) {
-        return this.httpClient.put(claimURL + claim.claimType, claim)
+    ApplicationsService.prototype.persist = function (entry) {
+        return this.httpClient.put(entryURL + entry.realm, entry)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    ClaimsService.prototype.create = function (claim) {
-        return this.httpClient.post(claimURL, claim)
+    ApplicationsService.prototype.create = function (entry) {
+        return this.httpClient.post(entryURL, entry)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    ClaimsService.prototype.remove = function (claim) {
-        return this.httpClient.delete(claimURL + claim.claimType, claim)
+    ApplicationsService.prototype.remove = function (entry) {
+        return this.httpClient.delete(entryURL + entry.realm, entry)
             .map(function (res) { return res.json(); })
             .catch(this.handlePlaceboError);
     };
     // Fediz IDP returns 204 for DELETE Requests..
-    ClaimsService.prototype.handlePlaceboError = function (error) {
+    ApplicationsService.prototype.handlePlaceboError = function (error) {
     };
-    ClaimsService.prototype.handleError = function (error) {
+    ApplicationsService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    ClaimsService = __decorate([
+    ApplicationsService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_client_1.HttpClient])
-    ], ClaimsService);
-    return ClaimsService;
+    ], ApplicationsService);
+    return ApplicationsService;
 }());
-exports.ClaimsService = ClaimsService;
-//# sourceMappingURL=claims-service.js.map
+exports.ApplicationsService = ApplicationsService;
+//# sourceMappingURL=applications-service.js.map

@@ -25,7 +25,6 @@ export class ClaimsComponent {
         this.router.navigate(['/claim', encodeURIComponent(claim.claimType)]);
     }
   
-
     onRemove(claim: Claim) {
         this.claimsService.remove(claim).subscribe(
               this.claimsService.findAll().subscribe(
