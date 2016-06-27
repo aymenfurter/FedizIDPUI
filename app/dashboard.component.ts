@@ -5,7 +5,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
     selector: 'dashboard',    
     template: `        
         <div class="col-lg-12">
-            <h1 class="page-header">Welcome</h1>
+            <h1 class="page-header">Welcome</h1>           
         </div>
         <div class="content">
             Welcome to the Fediz IDP Administration UI. Later on, we will show some fance statistics here!

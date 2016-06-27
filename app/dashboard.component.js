@@ -16,7 +16,7 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard',
-            template: "        \n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Welcome</h1>\n        </div>\n        <div class=\"content\">\n            Welcome to the Fediz IDP Administration UI. Later on, we will show some fance statistics here!\n            <a [routerLink]=\"['/claims']\"><i class=\"fa fa-fw\"></i> Go to Roles</a>\n        </div>",
+            template: "        \n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Welcome</h1>           \n        </div>\n        <div class=\"content\">\n            Welcome to the Fediz IDP Administration UI. Later on, we will show some fance statistics here!\n            <a [routerLink]=\"['/claims']\"><i class=\"fa fa-fw\"></i> Go to Roles</a>\n        </div>",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])

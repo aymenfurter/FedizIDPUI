@@ -14,9 +14,12 @@ var HttpClient = (function () {
     function HttpClient(http) {
         this.http = http;
     }
+    HttpClient.prototype.setUsernamePassword = function (username, password) {
+        this.userPasswordBase64 = btoa(username + ':' + password);
+    };
     HttpClient.prototype.createAuthorizationHeader = function (headers) {
         headers.append('Authorization', 'Basic ' +
-            btoa('admin:password'));
+            this.userPasswordBase64);
         headers.append('Accept', 'application/json');
     };
     HttpClient.prototype.get = function (url) {

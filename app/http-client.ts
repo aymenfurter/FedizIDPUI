@@ -3,15 +3,20 @@ import {Http, Headers} from '@angular/http';
 
 @Injectable()
 export class HttpClient {
-  private http;
-  
+  private http;  
+  private userPasswordBase64;
+
   constructor(http: Http) {
     this.http = http;
   }
 
+  setUsernamePassword(username:string, password: string) {
+    this.userPasswordBase64 = btoa(username +':' + password)
+  }
+
   createAuthorizationHeader(headers:Headers) {
     headers.append('Authorization', 'Basic ' +
-      btoa('admin:password')); 
+      this.userPasswordBase64); 
     headers.append('Accept', 'application/json');      
   }
 

@@ -3,6 +3,5 @@ export class Consts {
 
     // Until we have Paging
     public static get LISTSIZE():string { return "500"; }
-
-    
+    public static isLoggedIn: boolean = false;
 }

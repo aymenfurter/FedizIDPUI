@@ -13,6 +13,7 @@ var Consts = (function () {
         enumerable: true,
         configurable: true
     });
+    Consts.isLoggedIn = false;
     return Consts;
 }());
 exports.Consts = Consts;
