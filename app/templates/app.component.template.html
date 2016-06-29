@@ -8,9 +8,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Fediz IDP UI</a>
+            </button>            
+            <a class="navbar-brand" href="index.html">Fediz IDP UI</a>            
         </div>
+        <div class="nav navbar-top-links navbar-right navbar-brand">Welcome, {{username}}!</div>
         <!-- /.navbar-header -->
         
         <!-- /.navbar-top-links -->
@@ -52,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" [(ngModel)]="password"  class="form-control" name="password" #pwd="ngModel" required >
+                                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password"  class="form-control" name="password" #pwd="ngModel" required >
                                     <div [hidden]="pwd.valid" class="alert alert-warning">
                                       Password is required
                                     </div>
@@ -69,5 +70,3 @@
         </div>
     </div>
 </template>
-
-                                

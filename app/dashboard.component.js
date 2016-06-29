@@ -10,16 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var applications_service_1 = require('./applications-service');
+var claims_service_1 = require('./claims-service');
 var DashboardComponent = (function () {
-    function DashboardComponent() {
+    function DashboardComponent(claimsService, applicationsService) {
+        this.claimsService = claimsService;
+        this.applicationsService = applicationsService;
     }
+    DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.claimsService.findAll().subscribe(function (data) { return _this.sizeClaims = data.claims.length; });
+        this.applicationsService.findAll().subscribe(function (data) { return _this.sizeApps = data.applications.length; });
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard',
-            template: "        \n        <div class=\"col-lg-12\">\n            <h1 class=\"page-header\">Welcome</h1>           \n        </div>\n        <div class=\"content\">\n            Welcome to the Fediz IDP Administration UI. Later on, we will show some fance statistics here!\n            <a [routerLink]=\"['/claims']\"><i class=\"fa fa-fw\"></i> Go to Roles</a>\n        </div>",
+            templateUrl: 'app/templates/dashboard.component.template.html',
+            providers: [claims_service_1.ClaimsService, applications_service_1.ApplicationsService],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [claims_service_1.ClaimsService, applications_service_1.ApplicationsService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

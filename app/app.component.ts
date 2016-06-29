@@ -9,7 +9,7 @@ import { ApplicationEditComponent } from './applications.component.edit';
 
 import { DashboardComponent } from './dashboard.component';
 import { NavigationComponent } from './navigation.component';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { HttpClient } from './http-client';
 import { NgForm }    from '@angular/common';
@@ -36,7 +36,7 @@ export class AppComponent {
         .catch(this.handleError);                                     
   	}
 
-    constructor(httpClient: HttpClient) {
+    constructor(httpClient: HttpClient, private router: Router) {
         this.httpClient = httpClient;
     }
 
@@ -46,7 +46,7 @@ export class AppComponent {
   
   	handleSuccess() {
   		this.userDataWrong = false;
-  		this.isLoggedIn = true;
+  		this.isLoggedIn = true;      
   	}
 	
 	handleError(error) {      

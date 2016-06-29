@@ -17,7 +17,8 @@ var navigation_component_1 = require('./navigation.component');
 var router_1 = require('@angular/router');
 var http_client_1 = require('./http-client');
 var AppComponent = (function () {
-    function AppComponent(httpClient) {
+    function AppComponent(httpClient, router) {
+        this.router = router;
         this.isLoggedIn = false;
         this.userDataWrong = false;
         this.httpClient = httpClient;
@@ -44,7 +45,7 @@ var AppComponent = (function () {
             templateUrl: 'app/templates/app.component.template.html',
             directives: [dashboard_component_1.DashboardComponent, router_1.ROUTER_DIRECTIVES, navigation_component_1.NavigationComponent, claims_component_edit_1.ClaimEditComponent, applications_component_edit_1.ApplicationEditComponent]
         }), 
-        __metadata('design:paramtypes', [http_client_1.HttpClient])
+        __metadata('design:paramtypes', [http_client_1.HttpClient, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());
