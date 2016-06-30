@@ -40,13 +40,13 @@ export class AppComponent {
         this.httpClient = httpClient;
     }
 
-	ngOnInit() {
+	  ngOnInit() {
 
   	} 
   
   	handleSuccess() {
   		this.userDataWrong = false;
-  		this.isLoggedIn = true;      
+  		this.isLoggedIn = true;            
   	}
 	
 	handleError(error) {      

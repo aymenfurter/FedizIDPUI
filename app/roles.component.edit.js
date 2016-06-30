@@ -9,19 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var application_1 = require('./application');
+var role_1 = require('./role');
 var router_1 = require('@angular/router');
-var applications_service_1 = require('./applications-service');
-var ApplicationEditComponent = (function () {
-    function ApplicationEditComponent(route, router, service) {
+var roles_service_1 = require('./roles-service');
+var RoleEditComponent = (function () {
+    function RoleEditComponent(route, router, service) {
         this.route = route;
         this.router = router;
         this.service = service;
-        this.model = new application_1.Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*");
+        this.model = new role_1.Role("", "");
         this.createEntry = false;
         this.submitted = false;
     }
-    ApplicationEditComponent.prototype.ngOnInit = function () {
+    RoleEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             var id = decodeURIComponent(params['id']);
@@ -33,30 +33,30 @@ var ApplicationEditComponent = (function () {
             }
         });
     };
-    ApplicationEditComponent.prototype.onPersist = function () {
+    RoleEditComponent.prototype.onPersist = function () {
         this.submitted = true;
         if (!this.createEntry) {
-            this.service.persist(this.model).subscribe(this.router.navigate(['/applications']));
+            this.service.persist(this.model).subscribe(this.router.navigate(['/roles']));
         }
         else {
-            this.service.create(this.model).subscribe(this.router.navigate(['/applications']));
+            this.service.create(this.model).subscribe(this.router.navigate(['/roles']));
         }
     };
-    ApplicationEditComponent.prototype.onSubmit = function () { this.submitted = true; };
-    Object.defineProperty(ApplicationEditComponent.prototype, "diagnostic", {
+    RoleEditComponent.prototype.onSubmit = function () { this.submitted = true; };
+    Object.defineProperty(RoleEditComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.model); },
         enumerable: true,
         configurable: true
     });
-    ApplicationEditComponent = __decorate([
+    RoleEditComponent = __decorate([
         core_1.Component({
-            selector: 'application-form',
-            templateUrl: 'app/templates/applications.component.template.edit.html',
-            providers: [applications_service_1.ApplicationsService]
+            selector: 'edit-form',
+            templateUrl: 'app/templates/roles.component.template.edit.html',
+            providers: [roles_service_1.RolesService]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, applications_service_1.ApplicationsService])
-    ], ApplicationEditComponent);
-    return ApplicationEditComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, roles_service_1.RolesService])
+    ], RoleEditComponent);
+    return RoleEditComponent;
 }());
-exports.ApplicationEditComponent = ApplicationEditComponent;
-//# sourceMappingURL=applications.component.edit.js.map
+exports.RoleEditComponent = RoleEditComponent;
+//# sourceMappingURL=roles.component.edit.js.map

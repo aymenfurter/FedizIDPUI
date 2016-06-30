@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { NgForm }    from '@angular/common';
-import { Application }    from './application';
+import { Role }    from './role';
 import { Router, ActivatedRoute }       from '@angular/router';
-import { ApplicationsService } from './applications-service';
+import { RolesService } from './roles-service';
 
 @Component({
-  	selector: 'application-form',
-	templateUrl: 'app/templates/applications.component.template.edit.html',
-	providers: [ApplicationsService]
+  	selector: 'edit-form',
+	templateUrl: 'app/templates/roles.component.template.edit.html',
+	providers: [RolesService]
 })
-export class ApplicationEditComponent {  	
-	model = new Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*");
+export class RoleEditComponent {  	
+	model = new Role("", "");
 	createEntry = false;
 	submitted = false; 	
   	private sub: any;
 
-	constructor(private route: ActivatedRoute, private router: Router, private service: ApplicationsService) {
+	constructor(private route: ActivatedRoute, private router: Router, private service: RolesService) {
 
 	}
 
@@ -38,11 +38,11 @@ export class ApplicationEditComponent {
   	
   		if (!this.createEntry) {
 	  		this.service.persist(this.model).subscribe(
-	  			this.router.navigate(['/applications'])
+	  			this.router.navigate(['/roles'])
 	        );
         } else {
         	this.service.create(this.model).subscribe(
-	  			this.router.navigate(['/applications'])
+	  			this.router.navigate(['/roles'])
 	        );
         }
 

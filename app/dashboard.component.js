@@ -12,24 +12,27 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var applications_service_1 = require('./applications-service');
 var claims_service_1 = require('./claims-service');
+var roles_service_1 = require('./roles-service');
 var DashboardComponent = (function () {
-    function DashboardComponent(claimsService, applicationsService) {
+    function DashboardComponent(claimsService, applicationsService, rolesService) {
         this.claimsService = claimsService;
         this.applicationsService = applicationsService;
+        this.rolesService = rolesService;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.claimsService.findAll().subscribe(function (data) { return _this.sizeClaims = data.claims.length; });
         this.applicationsService.findAll().subscribe(function (data) { return _this.sizeApps = data.applications.length; });
+        this.rolesService.findAll().subscribe(function (data) { return _this.sizeRoles = data.roles.length; });
     };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard',
             templateUrl: 'app/templates/dashboard.component.template.html',
-            providers: [claims_service_1.ClaimsService, applications_service_1.ApplicationsService],
+            providers: [claims_service_1.ClaimsService, applications_service_1.ApplicationsService, roles_service_1.RolesService],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [claims_service_1.ClaimsService, applications_service_1.ApplicationsService])
+        __metadata('design:paramtypes', [claims_service_1.ClaimsService, applications_service_1.ApplicationsService, roles_service_1.RolesService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

@@ -1,11 +1,14 @@
 import { provideRouter, RouterConfig } from '@angular/router';
 import {DashboardComponent} from './dashboard.component';
 
-import {ClaimsComponent} from './claims.component';
-import {ClaimEditComponent} from './claims.component.edit';
+import { ClaimsComponent } from './claims.component';
+import { ClaimEditComponent } from './claims.component.edit';
 
-import {ApplicationsComponent} from './applications.component';
-import {ApplicationEditComponent} from './applications.component.edit';
+import { ApplicationsComponent } from './applications.component';
+import { ApplicationEditComponent } from './applications.component.edit';
+
+import { RolesComponent } from './roles.component';
+import { RoleEditComponent } from './roles.component.edit';
 
 
 export const routes: RouterConfig = [
@@ -23,6 +26,11 @@ export const routes: RouterConfig = [
 	/* IDPs */
 
 	/* Trusted IDPs */
+
+	/* Roles */
+	{ path: 'roles', component: RolesComponent },  
+	{ path: 'role/:id', component: RoleEditComponent },  
+	{ path: 'create-role', component: RoleEditComponent },
 
 
 
