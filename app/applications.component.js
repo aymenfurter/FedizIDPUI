@@ -16,6 +16,9 @@ var ApplicationsComponent = (function () {
         this.service = service;
         this.router = router;
     }
+    ApplicationsComponent.prototype.onMapClaims = function (application) {
+        this.router.navigate(['/claims2application', encodeURIComponent(application.realm)]);
+    };
     ApplicationsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.service.findAll().subscribe(function (data) { return _this.entries = data.applications; });

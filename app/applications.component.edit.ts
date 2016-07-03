@@ -10,7 +10,7 @@ import { ApplicationsService } from './applications-service';
 	providers: [ApplicationsService]
 })
 export class ApplicationEditComponent {  	
-	model = new Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*");
+	model = new Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*", []);
 	createEntry = false;
 	submitted = false; 	
   	private sub: any;

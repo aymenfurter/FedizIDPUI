@@ -1,6 +1,6 @@
 "use strict";
 var Application = (function () {
-    function Application(realm, role, serviceDisplayName, serviceDescription, protocol, tokenType, lifeTime, passiveRequestorEndpointConstraint) {
+    function Application(realm, role, serviceDisplayName, serviceDescription, protocol, tokenType, lifeTime, passiveRequestorEndpointConstraint, claims) {
         this.realm = realm;
         this.role = role;
         this.serviceDisplayName = serviceDisplayName;
@@ -9,6 +9,7 @@ var Application = (function () {
         this.tokenType = tokenType;
         this.lifeTime = lifeTime;
         this.passiveRequestorEndpointConstraint = passiveRequestorEndpointConstraint;
+        this.claims = claims;
     }
     return Application;
 }());

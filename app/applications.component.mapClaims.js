@@ -12,51 +12,40 @@ var core_1 = require('@angular/core');
 var application_1 = require('./application');
 var router_1 = require('@angular/router');
 var applications_service_1 = require('./applications-service');
-var ApplicationEditComponent = (function () {
-    function ApplicationEditComponent(route, router, service) {
+var claims_service_1 = require('./claims-service');
+var ApplicationMapClaimsComponent = (function () {
+    function ApplicationMapClaimsComponent(route, router, service, claimsService) {
         this.route = route;
         this.router = router;
         this.service = service;
+        this.claimsService = claimsService;
         this.model = new application_1.Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*", []);
-        this.createEntry = false;
-        this.submitted = false;
     }
-    ApplicationEditComponent.prototype.ngOnInit = function () {
+    ApplicationMapClaimsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.claimsService.findAll().subscribe(function (data) { return _this.claims = data.claims; });
         this.sub = this.route.params.subscribe(function (params) {
             var id = decodeURIComponent(params['id']);
             if (id != "undefined") {
                 _this.service.find(id).subscribe(function (data) { return _this.model = data; });
             }
-            else {
-                _this.createEntry = true;
-            }
         });
     };
-    ApplicationEditComponent.prototype.onPersist = function () {
-        this.submitted = true;
-        if (!this.createEntry) {
-            this.service.persist(this.model).subscribe(this.router.navigate(['/applications']));
-        }
-        else {
-            this.service.create(this.model).subscribe(this.router.navigate(['/applications']));
-        }
+    ApplicationMapClaimsComponent.prototype.onUnmap = function (entry, model) {
+        this.service.removeClaimMapping(model, entry);
     };
-    ApplicationEditComponent.prototype.onSubmit = function () { this.submitted = true; };
-    Object.defineProperty(ApplicationEditComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.model); },
-        enumerable: true,
-        configurable: true
-    });
-    ApplicationEditComponent = __decorate([
+    ApplicationMapClaimsComponent.prototype.onMapNewClaim = function () {
+        this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional);
+    };
+    ApplicationMapClaimsComponent = __decorate([
         core_1.Component({
-            selector: 'application-form',
-            templateUrl: 'app/templates/applications.component.template.edit.html',
-            providers: [applications_service_1.ApplicationsService]
+            selector: 'applmapform',
+            templateUrl: 'app/templates/applications.component.template.mapClaims.html',
+            providers: [applications_service_1.ApplicationsService, claims_service_1.ClaimsService]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, applications_service_1.ApplicationsService])
-    ], ApplicationEditComponent);
-    return ApplicationEditComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, applications_service_1.ApplicationsService, claims_service_1.ClaimsService])
+    ], ApplicationMapClaimsComponent);
+    return ApplicationMapClaimsComponent;
 }());
-exports.ApplicationEditComponent = ApplicationEditComponent;
-//# sourceMappingURL=applications.component.edit.js.map
+exports.ApplicationMapClaimsComponent = ApplicationMapClaimsComponent;
+//# sourceMappingURL=applications.component.mapClaims.js.map

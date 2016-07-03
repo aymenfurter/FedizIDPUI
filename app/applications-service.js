@@ -11,13 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_client_1 = require('./http-client');
 var Observable_1 = require('rxjs/Observable');
+var requestclaim_1 = require('./requestclaim');
 var consts_1 = require('./consts');
 require('rxjs/Rx');
-var entries = [], urlIdentifier = "applications", baseURL = consts_1.Consts.URL_PREFIX, listURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, entryURL = baseURL + urlIdentifier + '/';
+var entries = [], urlIdentifier = "applications", baseURL = consts_1.Consts.URL_PREFIX, listURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, entryURL = baseURL + urlIdentifier + '/', claimMappingSuffix = "/claims";
 var ApplicationsService = (function () {
     function ApplicationsService(httpClient) {
         this.httpClient = httpClient;
     }
+    ApplicationsService.prototype.removeClaimMapping = function (entry, claimType) {
+        return this.httpClient.delete(entryURL + entry.realm + claimMappingSuffix + "/" + claimType, {})
+            .map(function (res) { return res.json(); })
+            .catch(this.handlePlaceboError);
+    };
+    ApplicationsService.prototype.addClaimMapping = function (entry, claimType, isOptional) {
+        var requestClaim = new requestclaim_1.RequestClaim(claimType, isOptional + "");
+        return this.httpClient.post(entryURL + entry.realm + claimMappingSuffix, requestClaim).map(function (res) { return res.json(); }).catch(this.handleError);
+    };
     ApplicationsService.prototype.findAll = function () {
         return this.httpClient.get(listURL)
             .map(function (res) { return res.json(); })

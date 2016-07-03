@@ -10,10 +10,15 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
     directives: [ROUTER_DIRECTIVES]
 })
 export class ApplicationsComponent {
-    private entries: Application;
-     
+    private entries: Application;    
+
     constructor(private service:ApplicationsService, private router: Router) {        
+
     } 
+
+    onMapClaims (application:Application) {
+        this.router.navigate(['/claims2application', encodeURIComponent(application.realm)]);
+    }
  
     ngOnInit() {
         this.service.findAll().subscribe(

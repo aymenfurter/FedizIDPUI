@@ -5,6 +5,7 @@ var claims_component_1 = require('./claims.component');
 var claims_component_edit_1 = require('./claims.component.edit');
 var applications_component_1 = require('./applications.component');
 var applications_component_edit_1 = require('./applications.component.edit');
+var applications_component_mapClaims_1 = require('./applications.component.mapClaims');
 var roles_component_1 = require('./roles.component');
 var roles_component_edit_1 = require('./roles.component.edit');
 var trustedIdp_component_1 = require('./trustedIdp.component');
@@ -19,6 +20,7 @@ exports.routes = [
     /* Applications */
     { path: 'applications', component: applications_component_1.ApplicationsComponent },
     { path: 'application/:id', component: applications_component_edit_1.ApplicationEditComponent },
+    { path: 'claims2application/:id', component: applications_component_mapClaims_1.ApplicationMapClaimsComponent },
     { path: 'create-application', component: applications_component_edit_1.ApplicationEditComponent },
     /* IDPs */
     { path: 'trustedIdps', component: trustedIdp_component_1.TrustedIdpsComponent },

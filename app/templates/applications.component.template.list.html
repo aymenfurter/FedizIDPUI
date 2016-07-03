@@ -21,6 +21,7 @@
                         <th>Realm</th>
                         <th>Service name</th>
                         <th>Service Description</th>
+                        <th>No. of mapped claims</th>
                         <th>Operations</th>
                     </tr> 
                 </thead>
@@ -30,7 +31,11 @@
                         <td>{{entry.serviceDisplayName}}</td>
                         <td>{{entry.serviceDescription}}</td>                        
                         <td>
+                            <button type="button" class="btn btn-info btn-circle" (click)="onMapClaims(entry)">{{entry.claims.length}}</button>
+                        </td>                
+                        <td>
                             <button type="button" class="btn btn-primary btn-sm" (click)="onSelect(entry)"><i class="fa  fa-edit"></i>  Edit</button>
+                            <button class="btn btn-warning btn-" type="button" (click)="onMapClaims(entry)"><i class="fa fa-user"></i> Map Claims</button>
                             <button class="btn btn-danger btn-" type="button" (click)="onRemove(entry)"><i class="fa fa-trash-o"></i> Delete</button>
                         </td>
                     </tr>            

@@ -1,3 +1,5 @@
+import { Claim } from './claim';
+
 export class Application {   
   	constructor(
     	public realm: string,
@@ -7,7 +9,8 @@ export class Application {
     	public protocol: string,
     	public tokenType: string,
     	public lifeTime: string,
-    	public passiveRequestorEndpointConstraint: string
+    	public passiveRequestorEndpointConstraint: string,
+        public claims: Claim[]
   	) {  }
 
 };

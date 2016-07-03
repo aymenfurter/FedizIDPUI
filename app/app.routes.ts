@@ -6,6 +6,7 @@ import { ClaimEditComponent } from './claims.component.edit';
 
 import { ApplicationsComponent } from './applications.component';
 import { ApplicationEditComponent } from './applications.component.edit';
+import { ApplicationMapClaimsComponent } from './applications.component.mapClaims';
 
 import { RolesComponent } from './roles.component';
 import { RoleEditComponent } from './roles.component.edit';
@@ -17,8 +18,7 @@ import { IdpsComponent } from './idps.component';
 import { IDPEditComponent } from './idps.component.edit';
 
 
-export const routes: RouterConfig = [
-  
+export const routes: RouterConfig = [  
   	/* Claims */
 	{ path: 'claims', component: ClaimsComponent },  
 	{ path: 'claim/:id', component: ClaimEditComponent },  
@@ -27,13 +27,13 @@ export const routes: RouterConfig = [
 	/* Applications */
 	{ path: 'applications', component: ApplicationsComponent },  
 	{ path: 'application/:id', component: ApplicationEditComponent },  
+	{ path: 'claims2application/:id', component: ApplicationMapClaimsComponent },  	
 	{ path: 'create-application', component: ApplicationEditComponent},
 
 	/* IDPs */
 	{ path: 'trustedIdps', component: TrustedIdpsComponent },  
 	{ path: 'trustedIdp/:id', component: TrustedIdpEditComponent },  
 	{ path: 'create-trustedIdp', component: TrustedIdpEditComponent},
-
 
 	/* Trusted IDPs */
 	{ path: 'idps', component: IdpsComponent },  
@@ -44,7 +44,6 @@ export const routes: RouterConfig = [
 	{ path: 'roles', component: RolesComponent },  
 	{ path: 'role/:id', component: RoleEditComponent },  
 	{ path: 'create-role', component: RoleEditComponent },
-
 
 	/* General */
 	{ path: 'dashboard', component: DashboardComponent },  
