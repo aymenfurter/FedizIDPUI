@@ -3,25 +3,37 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import {ApplicationsService} from './applications-service';
 import {ClaimsService} from './claims-service';
 import {RolesService} from './roles-service';
+import {TrustedIdpsService} from './trustedIdps-service';
+import {IDPsService} from './idps-service';
 
 @Component({
     selector: 'dashboard',    
     templateUrl: 'app/templates/dashboard.component.template.html',    
-    providers: [ClaimsService, ApplicationsService, RolesService],
+    providers: [ClaimsService, ApplicationsService, RolesService, TrustedIdpsService, IDPsService],
     directives: [ROUTER_DIRECTIVES]
 })
 export class DashboardComponent {
     private sizeClaims;
     private sizeApps;
     private sizeRoles;
+    private sizeTrustedIdps;
+    private sizeIdps;
 
-    constructor(private claimsService:ClaimsService, private applicationsService:ApplicationsService, private rolesService:RolesService) {
+    constructor(private idpService: IDPsService, private claimsService:ClaimsService, private applicationsService:ApplicationsService, private rolesService:RolesService, private trustedIdpsService:TrustedIdpsService) {
 
     }
 
     ngOnInit() {
         this.claimsService.findAll().subscribe(
             data => this.sizeClaims = data.claims.length
+        );    
+
+        this.idpService.findAll().subscribe(
+            data => this.sizeIdps = data.idps.length
+        );    
+
+        this.trustedIdpsService.findAll().subscribe(
+            data => this.sizeTrustedIdps = data.trustedIdps.length
         );    
 
         this.applicationsService.findAll().subscribe(
