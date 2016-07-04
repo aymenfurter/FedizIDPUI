@@ -22,6 +22,19 @@ export class IdpsComponent {
         );
     }    
 
+    onMapClaims (idp:IDP) {
+        this.router.navigate(['/claims2idp', encodeURIComponent(idp.realm)]);
+    }
+
+    onMapApplications (idp:IDP) {
+        this.router.navigate(['/applications2idp', encodeURIComponent(idp.realm)]);
+    }
+
+    onMapTrustedIdps (idp:IDP) {
+        this.router.navigate(['/trustedIdps2idp', encodeURIComponent(idp.realm)]);        
+    }
+ 
+
     onSelect(idp: IDP) {
         this.router.navigate(['/idp', encodeURIComponent(idp.realm)]);
     }

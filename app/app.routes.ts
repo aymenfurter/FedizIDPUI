@@ -16,6 +16,9 @@ import { TrustedIdpEditComponent } from './trustedIdps.component.edit';
 
 import { IdpsComponent } from './idps.component';
 import { IDPEditComponent } from './idps.component.edit';
+import { IdpMapClaimsComponent } from './idps.component.mapClaims';
+import { IdpMapApplicationsComponent } from './idps.component.mapApplications';
+import { IdpMapTrustedIdpComponent } from './idps.component.mapTrustedIdps';
 
 
 export const routes: RouterConfig = [  
@@ -30,14 +33,17 @@ export const routes: RouterConfig = [
 	{ path: 'claims2application/:id', component: ApplicationMapClaimsComponent },  	
 	{ path: 'create-application', component: ApplicationEditComponent},
 
-	/* IDPs */
+	/* Trusted IDPs */
 	{ path: 'trustedIdps', component: TrustedIdpsComponent },  
-	{ path: 'trustedIdp/:id', component: TrustedIdpEditComponent },  
+	{ path: 'trustedIdp/:id', component: TrustedIdpEditComponent },  	
 	{ path: 'create-trustedIdp', component: TrustedIdpEditComponent},
 
-	/* Trusted IDPs */
+	/* IDPs */
 	{ path: 'idps', component: IdpsComponent },  
 	{ path: 'idp/:id', component: IDPEditComponent },  
+	{ path: 'claims2idp/:id', component: IdpMapClaimsComponent },  	
+	{ path: 'applications2idp/:id', component: IdpMapApplicationsComponent },  		
+	{ path: 'trustedIdps2idp/:id', component: IdpMapTrustedIdpComponent },  		
 	{ path: 'create-idp', component: IDPEditComponent},
 
 	/* Roles */

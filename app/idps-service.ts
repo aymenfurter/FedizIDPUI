@@ -11,7 +11,11 @@ let entries = [],
     baseURL: string = Consts.URL_PREFIX,
     urlIdentifier: string = "idps",
     IdpsURL: string = baseURL + urlIdentifier + '?size=' + Consts.LISTSIZE,
+    claimMappingSuffix: string = "/claims",
+    applicationMappingSuffix: string = "/applications",
+    trustedIdpsMappingSuffix: string = "/trusted-idps",
     idpURL: string = baseURL + urlIdentifier + '/';    
+
  
 @Injectable()
 export class IDPsService {
@@ -21,6 +25,52 @@ export class IDPsService {
         this.httpClient = httpClient;
     }
  
+    removeTrustedIdpMapping(entry: IDP, claimType: string) {        
+        return this.httpClient.delete(idpURL + entry.realm + trustedIdpsMappingSuffix + "/" + claimType, {})
+            .map((res: any) => res.json())
+            .catch(this.handlePlaceboError);            
+    }
+
+    addTrustedIdpMapping(entry: IDP, trustedIdpRealm: string) {
+        var obj = {};
+        obj["realm"] = trustedIdpRealm;
+
+        return this.httpClient.post(idpURL + entry.realm + trustedIdpsMappingSuffix, obj)            
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
+    }
+
+
+    removeClaimMapping(entry: IDP, claimType: string) {        
+        return this.httpClient.delete(idpURL + entry.realm + claimMappingSuffix + "/" + claimType, {})
+            .map((res: any) => res.json())
+            .catch(this.handlePlaceboError);            
+    }
+
+    addClaimMapping(entry: IDP, claimType: string, isOptional: boolean) {
+        var claim = {};
+        claim["claimType"] = claimType;
+
+        return this.httpClient.post(idpURL + entry.realm + claimMappingSuffix, claim)            
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
+    }
+
+    removeApplicationMapping(entry: IDP, claimType: string) {        
+        return this.httpClient.delete(idpURL + entry.realm + applicationMappingSuffix + "/" + claimType, {})
+            .map((res: any) => res.json())
+            .catch(this.handlePlaceboError);            
+    }
+
+    addApplicationMapping(entry: IDP, applicationRealm: string) {
+        var obj = {};
+        obj["realm"] = applicationRealm;
+
+        return this.httpClient.post(idpURL + entry.realm + applicationMappingSuffix, obj)            
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
+    }
+
     findAll() {
         return this.httpClient.get(IdpsURL)
             .map((res: any) => res.json())

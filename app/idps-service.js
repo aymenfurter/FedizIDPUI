@@ -13,11 +13,47 @@ var http_client_1 = require('./http-client');
 var Observable_1 = require('rxjs/Observable');
 var consts_1 = require('./consts');
 require('rxjs/Rx');
-var entries = [], baseURL = consts_1.Consts.URL_PREFIX, urlIdentifier = "idps", IdpsURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, idpURL = baseURL + urlIdentifier + '/';
+var entries = [], baseURL = consts_1.Consts.URL_PREFIX, urlIdentifier = "idps", IdpsURL = baseURL + urlIdentifier + '?size=' + consts_1.Consts.LISTSIZE, claimMappingSuffix = "/claims", applicationMappingSuffix = "/applications", trustedIdpsMappingSuffix = "/trusted-idps", idpURL = baseURL + urlIdentifier + '/';
 var IDPsService = (function () {
     function IDPsService(httpClient) {
         this.httpClient = httpClient;
     }
+    IDPsService.prototype.removeTrustedIdpMapping = function (entry, claimType) {
+        return this.httpClient.delete(idpURL + entry.realm + trustedIdpsMappingSuffix + "/" + claimType, {})
+            .map(function (res) { return res.json(); })
+            .catch(this.handlePlaceboError);
+    };
+    IDPsService.prototype.addTrustedIdpMapping = function (entry, trustedIdpRealm) {
+        var obj = {};
+        obj["realm"] = trustedIdpRealm;
+        return this.httpClient.post(idpURL + entry.realm + trustedIdpsMappingSuffix, obj)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    IDPsService.prototype.removeClaimMapping = function (entry, claimType) {
+        return this.httpClient.delete(idpURL + entry.realm + claimMappingSuffix + "/" + claimType, {})
+            .map(function (res) { return res.json(); })
+            .catch(this.handlePlaceboError);
+    };
+    IDPsService.prototype.addClaimMapping = function (entry, claimType, isOptional) {
+        var claim = {};
+        claim["claimType"] = claimType;
+        return this.httpClient.post(idpURL + entry.realm + claimMappingSuffix, claim)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    IDPsService.prototype.removeApplicationMapping = function (entry, claimType) {
+        return this.httpClient.delete(idpURL + entry.realm + applicationMappingSuffix + "/" + claimType, {})
+            .map(function (res) { return res.json(); })
+            .catch(this.handlePlaceboError);
+    };
+    IDPsService.prototype.addApplicationMapping = function (entry, applicationRealm) {
+        var obj = {};
+        obj["realm"] = applicationRealm;
+        return this.httpClient.post(idpURL + entry.realm + applicationMappingSuffix, obj)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     IDPsService.prototype.findAll = function () {
         return this.httpClient.get(IdpsURL)
             .map(function (res) { return res.json(); })

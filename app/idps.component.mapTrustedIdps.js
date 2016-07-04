@@ -12,51 +12,40 @@ var core_1 = require('@angular/core');
 var idp_1 = require('./idp');
 var router_1 = require('@angular/router');
 var idps_service_1 = require('./idps-service');
-var IDPEditComponent = (function () {
-    function IDPEditComponent(route, router, service) {
+var trustedIdps_service_1 = require('./trustedIdps-service');
+var IdpMapTrustedIdpComponent = (function () {
+    function IdpMapTrustedIdpComponent(route, router, service, trustedIdpsService) {
         this.route = route;
         this.router = router;
         this.service = service;
+        this.trustedIdpsService = trustedIdpsService;
         this.model = new idp_1.IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
-        this.createEntry = false;
-        this.submitted = false;
     }
-    IDPEditComponent.prototype.ngOnInit = function () {
+    IdpMapTrustedIdpComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.trustedIdpsService.findAll().subscribe(function (data) { return _this.trustedIdps = data.trustedIDPs; });
         this.sub = this.route.params.subscribe(function (params) {
             var id = decodeURIComponent(params['id']);
             if (id != "undefined") {
                 _this.service.find(id).subscribe(function (data) { return _this.model = data; });
             }
-            else {
-                _this.createEntry = true;
-            }
         });
     };
-    IDPEditComponent.prototype.onPersist = function () {
-        this.submitted = true;
-        if (!this.createEntry) {
-            this.service.persist(this.model).subscribe(this.router.navigate(['/idps']));
-        }
-        else {
-            this.service.create(this.model).subscribe(this.router.navigate(['/idps']));
-        }
+    IdpMapTrustedIdpComponent.prototype.onUnmap = function (entry, model) {
+        this.service.removeTrustedIdpMapping(model, entry.realm).subscribe(this.ngOnInit());
     };
-    IDPEditComponent.prototype.onSubmit = function () { this.submitted = true; };
-    Object.defineProperty(IDPEditComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.model); },
-        enumerable: true,
-        configurable: true
-    });
-    IDPEditComponent = __decorate([
+    IdpMapTrustedIdpComponent.prototype.onMapNewTrustedIdp = function () {
+        this.service.addTrustedIdpMapping(this.model, this.chosenTrustedIdp).subscribe(this.ngOnInit());
+    };
+    IdpMapTrustedIdpComponent = __decorate([
         core_1.Component({
-            selector: 'edit-form',
-            templateUrl: 'app/templates/idps.component.template.edit.html',
-            providers: [idps_service_1.IDPsService]
+            selector: 'idpmapform',
+            templateUrl: 'app/templates/idps.component.template.mapTrustedIdps.html',
+            providers: [idps_service_1.IDPsService, trustedIdps_service_1.TrustedIdpsService]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, idps_service_1.IDPsService])
-    ], IDPEditComponent);
-    return IDPEditComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, idps_service_1.IDPsService, trustedIdps_service_1.TrustedIdpsService])
+    ], IdpMapTrustedIdpComponent);
+    return IdpMapTrustedIdpComponent;
 }());
-exports.IDPEditComponent = IDPEditComponent;
-//# sourceMappingURL=idps.component.edit.js.map
+exports.IdpMapTrustedIdpComponent = IdpMapTrustedIdpComponent;
+//# sourceMappingURL=idps.component.mapTrustedIdps.js.map

@@ -1,3 +1,5 @@
+import { Claim } from './claim';
+
 export class IDP { 
   	
   	constructor(
@@ -12,7 +14,9 @@ export class IDP {
     	public provideIdpList: string,
     	public useCurrentIdp: string,    	
     	public rpSingleSignOutCleanupConfirmation: string,        	
-    	public rpSingleSignOutConfirmation: string    	
+    	public rpSingleSignOutConfirmation: string,
+  	    public claimTypesOffered: Claim[]
+
   	) {  }
 
 };

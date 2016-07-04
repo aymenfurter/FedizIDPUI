@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from './http-client';
 import { Observable } from 'rxjs/Observable';
 import { Application } from './application';
-import { RequestClaim } from './requestClaim';
+import { RequestClaim } from './requestclaim';
 import { Consts } from './consts';
 import 'rxjs/Rx';
  

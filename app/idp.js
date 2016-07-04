@@ -1,6 +1,6 @@
 "use strict";
 var IDP = (function () {
-    function IDP(realm, uri, serviceDisplayName, serviceDescription, idpUrl, stsUrl, certificate, certificatePassword, provideIdpList, useCurrentIdp, rpSingleSignOutCleanupConfirmation, rpSingleSignOutConfirmation) {
+    function IDP(realm, uri, serviceDisplayName, serviceDescription, idpUrl, stsUrl, certificate, certificatePassword, provideIdpList, useCurrentIdp, rpSingleSignOutCleanupConfirmation, rpSingleSignOutConfirmation, claimTypesOffered) {
         this.realm = realm;
         this.uri = uri;
         this.serviceDisplayName = serviceDisplayName;
@@ -13,6 +13,7 @@ var IDP = (function () {
         this.useCurrentIdp = useCurrentIdp;
         this.rpSingleSignOutCleanupConfirmation = rpSingleSignOutCleanupConfirmation;
         this.rpSingleSignOutConfirmation = rpSingleSignOutConfirmation;
+        this.claimTypesOffered = claimTypesOffered;
     }
     return IDP;
 }());

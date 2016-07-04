@@ -12,51 +12,40 @@ var core_1 = require('@angular/core');
 var idp_1 = require('./idp');
 var router_1 = require('@angular/router');
 var idps_service_1 = require('./idps-service');
-var IDPEditComponent = (function () {
-    function IDPEditComponent(route, router, service) {
+var claims_service_1 = require('./claims-service');
+var IdpMapClaimsComponent = (function () {
+    function IdpMapClaimsComponent(route, router, service, claimsService) {
         this.route = route;
         this.router = router;
         this.service = service;
+        this.claimsService = claimsService;
         this.model = new idp_1.IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
-        this.createEntry = false;
-        this.submitted = false;
     }
-    IDPEditComponent.prototype.ngOnInit = function () {
+    IdpMapClaimsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.claimsService.findAll().subscribe(function (data) { return _this.claims = data.claims; });
         this.sub = this.route.params.subscribe(function (params) {
             var id = decodeURIComponent(params['id']);
             if (id != "undefined") {
                 _this.service.find(id).subscribe(function (data) { return _this.model = data; });
             }
-            else {
-                _this.createEntry = true;
-            }
         });
     };
-    IDPEditComponent.prototype.onPersist = function () {
-        this.submitted = true;
-        if (!this.createEntry) {
-            this.service.persist(this.model).subscribe(this.router.navigate(['/idps']));
-        }
-        else {
-            this.service.create(this.model).subscribe(this.router.navigate(['/idps']));
-        }
+    IdpMapClaimsComponent.prototype.onUnmap = function (entry, model) {
+        this.service.removeClaimMapping(model, entry.claimType).subscribe(this.ngOnInit());
     };
-    IDPEditComponent.prototype.onSubmit = function () { this.submitted = true; };
-    Object.defineProperty(IDPEditComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.model); },
-        enumerable: true,
-        configurable: true
-    });
-    IDPEditComponent = __decorate([
+    IdpMapClaimsComponent.prototype.onMapNewClaim = function () {
+        this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional).subscribe(this.ngOnInit());
+    };
+    IdpMapClaimsComponent = __decorate([
         core_1.Component({
-            selector: 'edit-form',
-            templateUrl: 'app/templates/idps.component.template.edit.html',
-            providers: [idps_service_1.IDPsService]
+            selector: 'idpmapform',
+            templateUrl: 'app/templates/idps.component.template.mapClaims.html',
+            providers: [idps_service_1.IDPsService, claims_service_1.ClaimsService]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, idps_service_1.IDPsService])
-    ], IDPEditComponent);
-    return IDPEditComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, idps_service_1.IDPsService, claims_service_1.ClaimsService])
+    ], IdpMapClaimsComponent);
+    return IdpMapClaimsComponent;
 }());
-exports.IDPEditComponent = IDPEditComponent;
-//# sourceMappingURL=idps.component.edit.js.map
+exports.IdpMapClaimsComponent = IdpMapClaimsComponent;
+//# sourceMappingURL=idps.component.mapClaims.js.map

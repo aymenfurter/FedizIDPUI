@@ -20,6 +20,15 @@ var IdpsComponent = (function () {
         var _this = this;
         this.service.findAll().subscribe(function (data) { return _this.entries = data.idps; });
     };
+    IdpsComponent.prototype.onMapClaims = function (idp) {
+        this.router.navigate(['/claims2idp', encodeURIComponent(idp.realm)]);
+    };
+    IdpsComponent.prototype.onMapApplications = function (idp) {
+        this.router.navigate(['/applications2idp', encodeURIComponent(idp.realm)]);
+    };
+    IdpsComponent.prototype.onMapTrustedIdps = function (idp) {
+        this.router.navigate(['/trustedIdps2idp', encodeURIComponent(idp.realm)]);
+    };
     IdpsComponent.prototype.onSelect = function (idp) {
         this.router.navigate(['/idp', encodeURIComponent(idp.realm)]);
     };
