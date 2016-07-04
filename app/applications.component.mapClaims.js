@@ -32,10 +32,10 @@ var ApplicationMapClaimsComponent = (function () {
         });
     };
     ApplicationMapClaimsComponent.prototype.onUnmap = function (entry, model) {
-        this.service.removeClaimMapping(model, entry);
+        this.service.removeClaimMapping(model, entry.claimType).subscribe(this.ngOnInit());
     };
     ApplicationMapClaimsComponent.prototype.onMapNewClaim = function () {
-        this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional);
+        this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional).subscribe(this.ngOnInit());
     };
     ApplicationMapClaimsComponent = __decorate([
         core_1.Component({

@@ -38,12 +38,15 @@ export class ApplicationMapClaimsComponent {
 	     });
   	}
 
-
   	onUnmap(entry, model) {
-  		this.service.removeClaimMapping(model, entry);
+  		this.service.removeClaimMapping(model, entry.claimType).subscribe(	  		
+	  		this.ngOnInit()
+	    );
   	}
 
 	onMapNewClaim() {
-		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional);
+		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional).subscribe(	  		
+	  		this.ngOnInit()
+	    );
 	}
 }

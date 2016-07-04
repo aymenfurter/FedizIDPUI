@@ -4,12 +4,13 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from './http-client';
 import { Observable } from 'rxjs/Observable';
 import { Application } from './application';
-import { RequestClaim } from './requestclaim';
+import { RequestClaim } from './requestClaim';
 import { Consts } from './consts';
 import 'rxjs/Rx';
  
 let entries = [],
     urlIdentifier: string = "applications",
+
     baseURL: string = Consts.URL_PREFIX,    
     listURL: string = baseURL + urlIdentifier + '?size=' + Consts.LISTSIZE,
     entryURL: string = baseURL + urlIdentifier + '/',
@@ -24,15 +25,20 @@ export class ApplicationsService {
     }
  
     removeClaimMapping(entry: Application, claimType: string) {
-        return this.httpClient.delete(entryURL + entry.realm + claimMappingSuffix + "/" + claimType, {})
+
+        let requestClaim: RequestClaim = new RequestClaim(claimType, true);
+
+        return this.httpClient.delete(entryURL + entry.realm + claimMappingSuffix + "/" + claimType, requestClaim)
             .map((res: any) => res.json())
             .catch(this.handlePlaceboError);            
     }
 
     addClaimMapping(entry: Application, claimType: string, isOptional: boolean) {
-        var requestClaim: RequestClaim = new RequestClaim(claimType, isOptional + "");
-             
-        return this.httpClient.post(entryURL + entry.realm + claimMappingSuffix, requestClaim).map((res: any) => res.json()).catch(this.handleError);            
+        let requestClaim: RequestClaim = new RequestClaim(claimType, isOptional);
+        
+        return this.httpClient.post(entryURL + entry.realm + claimMappingSuffix, requestClaim)            
+            .map((res: any) => res.json())
+            .catch(this.handleError);            
 
     }
 
