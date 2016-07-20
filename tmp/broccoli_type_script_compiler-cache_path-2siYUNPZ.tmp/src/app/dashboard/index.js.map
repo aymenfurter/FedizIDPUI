@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../home/mika/workspace/fediz-idp-webui/angular2-fedizidpui-cli/fediz-idp-ui/tmp/broccoli_type_script_compiler-input_base_path-o2t0YTLc.tmp/0/src/app/dashboard/index.ts"],"names":[],"mappings":";;;;AAAA,iBAAc,uBAAuB,CAAC,EAAA","sourcesContent":["export * from './dashboard.component';\n"]}
