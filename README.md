@@ -1,6 +1,14 @@
 # Fediz IDP UI
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.9.
+This software is in Proof of Concept state! Any liability is excluded.
+
+A User Interface for the Apache CXF Fediz IDP Rest Interface based on Angular 2, SB-Admin 2, Twitter Bootstrap and TypeScript.
+
+Known Issues:
+
+    - Login not yet fully implemented / working.
+    - Data does not getting refreshed consistently.
+
 
 ## Development server
 The app needs to be built using the command "npm install". After that, it expects to be run on an application server having fediz idp installed at in the context fediz-idp.
