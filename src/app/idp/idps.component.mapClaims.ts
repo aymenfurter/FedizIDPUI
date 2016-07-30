@@ -17,6 +17,7 @@ export class IdpMapClaimsComponent {
 	private claimIsOptional: boolean;
   	private sub: any;
   	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: IDPsService, private claimsService: ClaimsService) {
 	}
@@ -38,16 +39,22 @@ export class IdpMapClaimsComponent {
   	}
 
   	onUnmap(entry, model) {
+  		this.errorMsg = "";
   		this.service.removeClaimMapping(model, entry.claimType)
   				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
   	}
 
 	onMapNewClaim() {
+		this.errorMsg = "";
 		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional)
 				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
 	}
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

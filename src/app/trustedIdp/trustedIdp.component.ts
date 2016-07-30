@@ -11,7 +11,8 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
     directives: [ROUTER_DIRECTIVES]
 })
 export class TrustedIdpsComponent {
-    private entries: TrustedIdp;    
+    private entries: TrustedIdp;        
+    private errorMsg: string;
 
     constructor(private service:TrustedIdpsService, private router: Router) {        
 
@@ -31,11 +32,15 @@ export class TrustedIdpsComponent {
         this.service.remove(trustedIdp)
             .toPromise()
             .then(() => this.ngOnInit())
-            .catch(() => this.ngOnInit());  
+            .catch(() => this.handleError());  
     }      
 
     onCreate() {
         this.router.navigate(['/create-trustedIdp']);
+    }
+
+    handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
     }
  
 }

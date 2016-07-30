@@ -11,6 +11,7 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 })
 export class ApplicationsComponent {
     private entries: Application;    
+    private errorMsg: string;
 
     constructor(private service:ApplicationsService, private router: Router) {        
 
@@ -34,11 +35,15 @@ export class ApplicationsComponent {
         this.service.remove(application)
             .toPromise()
             .then(() => this.ngOnInit())
-            .catch(() => this.ngOnInit());            
+            .catch(() => this.handleError());  
     }      
 
     onCreate() {
         this.router.navigate(['/create-application']);
+    }
+
+    handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
     }
  
 }

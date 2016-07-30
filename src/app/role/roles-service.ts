@@ -23,42 +23,51 @@ export class RolesService {
  
     findAll() {
         return this.httpClient.get(rolesURL)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);
     }
 
     find(id: string) {
         return this.httpClient.get(roleURL + id)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     persist(role: Role) {
         return this.httpClient.put(roleURL + role.name, role)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     create(role: Role) {
         return this.httpClient.post(roleURL, role)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     remove (role: Role) {
          return this.httpClient.delete(roleURL + role.name, role)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);                               
     }
  
+    parseResult(res) {
+        let returnValue = null;
+        try {
+            returnValue = res.json();
+        } catch (ex) {}
+
+        if (returnValue != null) {
+            return returnValue;
+        }                 
+    }
 
     // Fediz IDP returns 204 for DELETE Requests..
     handlePlaceboError(error) {      
         return Observable.throw(error.json().error || 'Expected Error');
     }
 
-    handleError(error) {        
-        console.error(error);
+    handleError(error) {                
         return Observable.throw(error.json().error || 'Server error');
     } 
 }

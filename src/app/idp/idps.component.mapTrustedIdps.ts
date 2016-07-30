@@ -16,6 +16,7 @@ export class IdpMapTrustedIdpComponent {
 	private chosenTrustedIdp: string;	
   	private sub: any;
   	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: IDPsService, private trustedIdpsService: TrustedIdpsService) {
 	}
@@ -37,16 +38,22 @@ export class IdpMapTrustedIdpComponent {
   	}
 
   	onUnmap(entry, model) {
+  		this.errorMsg = "";
   		this.service.removeTrustedIdpMapping(model, entry.realm)
   				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
   	}
 
 	onMapNewTrustedIdp() {
+		this.errorMsg = "";
 		this.service.addTrustedIdpMapping(this.model, this.chosenTrustedIdp)
 				.toPromise()
 	    	   	.then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
 	}
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

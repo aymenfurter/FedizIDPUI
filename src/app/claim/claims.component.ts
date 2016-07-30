@@ -11,7 +11,8 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 })
 export class ClaimsComponent {
     private entries: Claim;
-     
+    private errorMsg: string;
+
     constructor(private claimsService:ClaimsService, private router: Router) {        
     }
  
@@ -29,11 +30,15 @@ export class ClaimsComponent {
         this.claimsService.remove(claim)            
             .toPromise()
             .then(() => this.ngOnInit())
-            .catch(() => this.ngOnInit());            
+            .catch(() => this.handleError());  
     }      
 
     onCreate() {
         this.router.navigate(['/create-claim']);
+    }
+
+    handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
     }
  
 }

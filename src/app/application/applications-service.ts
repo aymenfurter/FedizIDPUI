@@ -29,7 +29,7 @@ export class ApplicationsService {
         let requestClaim: RequestClaim = new RequestClaim(claimType, true);
 
         return this.httpClient.delete(entryURL + entry.realm + claimMappingSuffix + "/" + claimType, requestClaim)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);            
     }
 
@@ -37,48 +37,58 @@ export class ApplicationsService {
         let requestClaim: RequestClaim = new RequestClaim(claimType, isOptional);
         
         return this.httpClient.post(entryURL + entry.realm + claimMappingSuffix, requestClaim)            
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
 
     }
 
     findAll() {
         return this.httpClient.get(listURL)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);
     }
 
     find(id: string) {
         return this.httpClient.get(entryURL + id)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     persist(entry: Application) {
         return this.httpClient.put(entryURL + entry.realm, entry)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
  
     create(entry: Application) {
         return this.httpClient.post(entryURL, entry)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     remove (entry: Application) {
          return this.httpClient.delete(entryURL + entry.realm, entry)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);                               
     } 
+
+    parseResult(res) {
+        let returnValue = null;
+        try {
+            returnValue = res.json();
+        } catch (ex) {}
+
+        if (returnValue != null) {
+            return returnValue;
+        }                 
+    }
 
     // Fediz IDP returns 204 for DELETE Requests..
     handlePlaceboError(error) {   
         return Observable.throw(error.json().error || 'Expected Error');   
     }
 
-    handleError(error) {        
-        console.error(error);
+    handleError(error) {                
         return Observable.throw(error.json().error || 'Server error');
     } 
 }

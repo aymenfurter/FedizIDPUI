@@ -14,6 +14,7 @@ export class ApplicationEditComponent {
 	createEntry = false;
 	submitted = false; 	
   	private sub: any;
+	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: ApplicationsService) {
 
@@ -40,12 +41,12 @@ export class ApplicationEditComponent {
 	  		this.service.persist(this.model)
 	  			.toPromise()
 	            .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+	            .catch(() => this.handleError());  
         } else {
         	this.service.create(this.model)
         		.toPromise()
 	            .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+	            .catch(() => this.handleError());  
         }
 
   	}
@@ -56,4 +57,8 @@ export class ApplicationEditComponent {
 
 	onSubmit() { this.submitted = true; }  
 	get diagnostic() { return JSON.stringify(this.model); }
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

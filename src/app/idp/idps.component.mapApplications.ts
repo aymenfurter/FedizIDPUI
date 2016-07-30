@@ -16,6 +16,7 @@ export class IdpMapApplicationsComponent {
 	private chosenApplication: string;	
   	private sub: any;
   	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: IDPsService, private applicationsService: ApplicationsService) {
 	}
@@ -37,16 +38,22 @@ export class IdpMapApplicationsComponent {
   	}
 
   	onUnmap(entry, model) {
+  		this.errorMsg = "";
   		this.service.removeApplicationMapping(model, entry.realm)
   				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
   	}
 
 	onMapNewApplication() {
+		this.errorMsg = "";
 		this.service.addApplicationMapping(this.model, this.chosenApplication)
 				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
 	}
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

@@ -12,6 +12,9 @@
                     <div class="col-lg-3">
                         <form role="form" #editform="ngForm">
                             <div class="form-group">
+                                <div [hidden]="errorMsg == null || errorMsg == ''" class="alert alert-danger">
+                                      {{errorMsg}}
+                                </div>
                                 <label>Claim type</label>
                                 <input  [(ngModel)]="model.claimType"  class="form-control" name="claimType" #name="ngModel" required>                                            
                                 <div [hidden]="name.valid" class="alert alert-warning">

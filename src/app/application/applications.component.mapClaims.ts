@@ -17,6 +17,7 @@ export class ApplicationMapClaimsComponent {
 	private claimIsOptional: boolean;
   	private sub: any;
   	model = new Application("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0", "3600", "https://localhost:?(\d)*/.*", []);
+	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: ApplicationsService, private claimsService: ClaimsService) {
 
@@ -39,16 +40,22 @@ export class ApplicationMapClaimsComponent {
   	}
 
   	onUnmap(entry, model) {
+  		this.errorMsg = "";
   		this.service.removeClaimMapping(model, entry.claimType)
   				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
   	}
 
 	onMapNewClaim() {
+		this.errorMsg = "";
 		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional)
 				.toPromise()
 	    	    .then(() => this.ngOnInit())
-	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
 	}
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

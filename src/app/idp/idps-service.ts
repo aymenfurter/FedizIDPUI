@@ -27,7 +27,7 @@ export class IDPsService {
  
     removeTrustedIdpMapping(entry: IDP, claimType: string) {        
         return this.httpClient.delete(idpURL + entry.realm + trustedIdpsMappingSuffix + "/" + claimType, {})
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);            
     }
 
@@ -36,14 +36,14 @@ export class IDPsService {
         obj["realm"] = trustedIdpRealm;
 
         return this.httpClient.post(idpURL + entry.realm + trustedIdpsMappingSuffix, obj)            
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
 
     removeClaimMapping(entry: IDP, claimType: string) {        
         return this.httpClient.delete(idpURL + entry.realm + claimMappingSuffix + "/" + claimType, {})
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);            
     }
 
@@ -52,13 +52,13 @@ export class IDPsService {
         claim["claimType"] = claimType;
 
         return this.httpClient.post(idpURL + entry.realm + claimMappingSuffix, claim)            
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     removeApplicationMapping(entry: IDP, claimType: string) {        
         return this.httpClient.delete(idpURL + entry.realm + applicationMappingSuffix + "/" + claimType, {})
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);            
     }
 
@@ -67,48 +67,57 @@ export class IDPsService {
         obj["realm"] = applicationRealm;
 
         return this.httpClient.post(idpURL + entry.realm + applicationMappingSuffix, obj)            
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     findAll() {
         return this.httpClient.get(IdpsURL)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);
     }
 
     find(id: string) {
         return this.httpClient.get(idpURL + id)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     persist(idp: IDP) {
         return this.httpClient.put(idpURL + idp.realm, idp)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     create(idp: IDP) {
         return this.httpClient.post(idpURL, idp)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handleError);            
     }
 
     remove (idp: IDP) {
          return this.httpClient.delete(idpURL + idp.realm, idp)
-            .map((res: any) => res.json())
+            .map((res: any) => res = this.parseResult(res))
             .catch(this.handlePlaceboError);                               
     }
  
+    parseResult(res) {
+        let returnValue = null;
+        try {
+            returnValue = res.json();
+        } catch (ex) {}
+
+        if (returnValue != null) {
+            return returnValue;
+        }                 
+    }
 
     // Fediz IDP returns 204 for DELETE Requests..
     handlePlaceboError(error) {      
         return Observable.throw(error.json().error || 'Expected Error');
     }
 
-    handleError(error) {        
-        console.error(error);
+    handleError(error) {                
         return Observable.throw(error.json().error || 'Server error');
     } 
 }

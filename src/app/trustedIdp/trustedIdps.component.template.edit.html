@@ -12,6 +12,10 @@
                     <div class="col-lg-3">
                         <form role="form" #editform="ngForm">
                             <div class="form-group">
+                                <div [hidden]="errorMsg == null || errorMsg == ''" class="alert alert-danger">
+                                      {{errorMsg}}
+                                </div>
+                                
                                 <label>Description</label>
                                 <input [(ngModel)]="model.realm" class="form-control" name="realm" #realm="ngModel" required>                                            
                                 <div [hidden]="realm.valid" class="alert alert-warning">
@@ -41,7 +45,7 @@
                                 </div>
                             </div> 
                             <div class="form-group">
-                                <label>URL</label>
+                                <label>Protocol</label>
                                 <input [(ngModel)]="model.protocol" class="form-control" name="protocol" #protocol="ngModel" required>                                            
                                 <div [hidden]="protocol.valid" class="alert alert-warning">
                                   Protocol is required

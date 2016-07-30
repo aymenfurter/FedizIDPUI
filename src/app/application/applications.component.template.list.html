@@ -13,6 +13,9 @@
                 <p>"Realm" is the unique identifier for your application.</p>
             </div>                        
         </div>
+        <div [hidden]="errorMsg == null || errorMsg == ''" class="alert alert-danger">
+              {{errorMsg}}
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">

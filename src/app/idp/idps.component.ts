@@ -11,6 +11,7 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 })
 export class IdpsComponent {
     private entries: IDP;    
+    private errorMsg: string;
 
     constructor(private service:IDPsService, private router: Router) {        
 
@@ -43,11 +44,15 @@ export class IdpsComponent {
         this.service.remove(idp)
             .toPromise()
             .then(() => this.ngOnInit())
-            .catch(() => this.ngOnInit());  
+            .catch(() => this.handleError());  
     }      
 
     onCreate() {
         this.router.navigate(['/create-idp']);
+    }
+
+    handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
     }
  
 }

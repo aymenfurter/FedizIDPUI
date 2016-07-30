@@ -11,6 +11,7 @@ import { IDPsService } from './idps-service';
 })
 export class IDPEditComponent {  	
 	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+	private errorMsg: string;
 
 	createEntry = false;
 	submitted = false; 	
@@ -41,12 +42,12 @@ export class IDPEditComponent {
 	  		this.service.persist(this.model)
 	  			.toPromise()
 	    	    .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+	            .catch(() => this.handleError());  
         } else {
         	this.service.create(this.model)
 	  			.toPromise()
 	    	    .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+	            .catch(() => this.handleError());  
         }
   	}
 
@@ -56,4 +57,8 @@ export class IDPEditComponent {
 
 	onSubmit() { this.submitted = true; }  
 	get diagnostic() { return JSON.stringify(this.model); }
+
+	handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

@@ -11,9 +11,9 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 })
 export class RolesComponent {
     private entries: Role;    
+    private errorMsg: string;
 
     constructor(private service:RolesService, private router: Router) {        
-        console.log("meow");
     } 
  
     ngOnInit() {
@@ -30,11 +30,14 @@ export class RolesComponent {
         this.service.remove(role)        
             .toPromise()
             .then(() => this.ngOnInit())
-            .catch(() => this.ngOnInit());            
+            .catch(() => this.handleError());  
     }      
 
     onCreate() {
         this.router.navigate(['/create-role']);
     }
  
+    handleError() {
+          this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
+    }
 }

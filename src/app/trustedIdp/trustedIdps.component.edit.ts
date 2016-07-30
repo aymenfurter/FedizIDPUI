@@ -10,6 +10,7 @@ import { TrustedIdpsService } from './trustedIdps-service';
 	providers: [TrustedIdpsService]
 })
 export class TrustedIdpEditComponent {  	
+	private errorMsg: string;
 	model = new TrustedIdp("", "", "", "", "", "", "", "", true);
 	createEntry = false;
 	submitted = false; 	
@@ -40,14 +41,18 @@ export class TrustedIdpEditComponent {
 	  		this.service.persist(this.model)
 	  			.toPromise()
 	    	    .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors	        
+	            .catch(() => this.handleError());  
         } else {
         	this.service.create(this.model)
         		.toPromise()
 	    	    .then(() => this.navigateToListView())
-	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+	            .catch(() => this.handleError());  
         }
 
+  	}
+
+  	handleError() {
+  		this.errorMsg = "An error occurred while processing your request. Please verify your inputs.";
   	}
 
   	navigateToListView() {
