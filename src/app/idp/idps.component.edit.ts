@@ -38,15 +38,20 @@ export class IDPEditComponent {
   		this.submitted = true;  		
   	
   		if (!this.createEntry) {
-	  		this.service.persist(this.model).subscribe(
-	  			this.router.navigate(['/idps'])
-	        );
+	  		this.service.persist(this.model)
+	  			.toPromise()
+	    	    .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
         } else {
-        	this.service.create(this.model).subscribe(
-	  			this.router.navigate(['/idps'])
-	        );
+        	this.service.create(this.model)
+	  			.toPromise()
+	    	    .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
         }
+  	}
 
+  	navigateToListView() {
+		this.router.navigate(['/idps'])
   	}
 
 	onSubmit() { this.submitted = true; }  

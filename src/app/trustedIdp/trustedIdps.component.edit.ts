@@ -37,16 +37,23 @@ export class TrustedIdpEditComponent {
   		this.submitted = true;  		
   	
   		if (!this.createEntry) {
-	  		this.service.persist(this.model).subscribe(
-	  			this.router.navigate(['/trustedIdps'])
-	        );
+	  		this.service.persist(this.model)
+	  			.toPromise()
+	    	    .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors	        
         } else {
-        	this.service.create(this.model).subscribe(
-	  			this.router.navigate(['/trustedIdps'])
-	        );
+        	this.service.create(this.model)
+        		.toPromise()
+	    	    .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
         }
 
   	}
+
+  	navigateToListView() {
+  		this.router.navigate(['/trustedIdps'])
+  	}
+
 
 	onSubmit() { this.submitted = true; }  
 	get diagnostic() { return JSON.stringify(this.model); }

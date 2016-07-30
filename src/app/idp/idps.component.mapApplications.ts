@@ -37,14 +37,16 @@ export class IdpMapApplicationsComponent {
   	}
 
   	onUnmap(entry, model) {
-  		this.service.removeApplicationMapping(model, entry.realm).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+  		this.service.removeApplicationMapping(model, entry.realm)
+  				.toPromise()
+	    	    .then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
   	}
 
 	onMapNewApplication() {
-		this.service.addApplicationMapping(this.model, this.chosenApplication).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+		this.service.addApplicationMapping(this.model, this.chosenApplication)
+				.toPromise()
+	    	    .then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
 	}
 }

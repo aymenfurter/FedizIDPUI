@@ -40,11 +40,10 @@ export class IdpsComponent {
     }
   
     onRemove(idp: IDP) {
-        this.service.remove(idp).subscribe(
-              this.service.findAll().subscribe(
-                    data => this.entries = data.idps
-              )
-        );
+        this.service.remove(idp)
+            .toPromise()
+            .then(() => this.ngOnInit())
+            .catch(() => this.ngOnInit());  
     }      
 
     onCreate() {

@@ -27,11 +27,10 @@ export class RolesComponent {
     }
   
     onRemove(role: Role) {
-        this.service.remove(role).subscribe(
-              this.service.findAll().subscribe(
-                    data => this.entries = data.roles
-              )
-        );
+        this.service.remove(role)        
+            .toPromise()
+            .then(() => this.ngOnInit())
+            .catch(() => this.ngOnInit());            
     }      
 
     onCreate() {

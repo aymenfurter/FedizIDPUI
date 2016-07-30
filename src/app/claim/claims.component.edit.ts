@@ -34,21 +34,26 @@ export class ClaimEditComponent {
   	}
 
   	onPersist() {  		
-  		this.submitted = true;  		
-  	
+  		this.submitted = true;  		  
   		// Maybe it would be better to have such logic in the Service; Since this would result in an additional request we leave it here for now.
   		if (!this.createEntry) {
-	  		this.service.persist(this.model).subscribe(
-	  			this.router.navigate(['/claims'])
-	        );
+	  		this.service.persist(this.model)
+	  			.toPromise()
+	            .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
         } else {
-        	this.service.create(this.model).subscribe(
-	  			this.router.navigate(['/claims'])
-	        );
+        	this.service.create(this.model)
+        		.toPromise()
+	    	    .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());  // TODO: Handle Server Errors
+        
         }
 
   	}
 
+  	navigateToListView() {
+  		this.router.navigate(['/claims'])
+  	}
 
 	onSubmit() { this.submitted = true; }  
 	get diagnostic() { return JSON.stringify(this.model); }

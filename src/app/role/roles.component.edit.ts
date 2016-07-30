@@ -36,16 +36,26 @@ export class RoleEditComponent {
   	onPersist() {  		
   		this.submitted = true;  		
   	
+
+			
+
   		if (!this.createEntry) {
-	  		this.service.persist(this.model).subscribe(
-	  			this.router.navigate(['/roles'])
-	        );
+	  		this.service.persist(this.model)
+		  		.toPromise()
+	            .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());            
+
         } else {
-        	this.service.create(this.model).subscribe(
-	  			this.router.navigate(['/roles'])
-	        );
+        	this.service.create(this.model)
+	        	.toPromise()
+	            .then(() => this.navigateToListView())
+	            .catch(() => this.navigateToListView());            
         }
 
+  	}
+
+  	navigateToListView() {
+		this.router.navigate(['/roles'])
   	}
 
 	onSubmit() { this.submitted = true; }  

@@ -37,14 +37,16 @@ export class IdpMapTrustedIdpComponent {
   	}
 
   	onUnmap(entry, model) {
-  		this.service.removeTrustedIdpMapping(model, entry.realm).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+  		this.service.removeTrustedIdpMapping(model, entry.realm)
+  				.toPromise()
+	    	    .then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
   	}
 
 	onMapNewTrustedIdp() {
-		this.service.addTrustedIdpMapping(this.model, this.chosenTrustedIdp).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+		this.service.addTrustedIdpMapping(this.model, this.chosenTrustedIdp)
+				.toPromise()
+	    	   	.then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
 	}
 }

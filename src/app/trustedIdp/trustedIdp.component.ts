@@ -28,11 +28,10 @@ export class TrustedIdpsComponent {
     }
   
     onRemove(trustedIdp: TrustedIdp) {
-        this.service.remove(trustedIdp).subscribe(
-              this.service.findAll().subscribe(
-                    data => this.entries = data.trustedIDPs
-              )
-        );
+        this.service.remove(trustedIdp)
+            .toPromise()
+            .then(() => this.ngOnInit())
+            .catch(() => this.ngOnInit());  
     }      
 
     onCreate() {

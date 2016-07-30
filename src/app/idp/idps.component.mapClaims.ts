@@ -38,14 +38,16 @@ export class IdpMapClaimsComponent {
   	}
 
   	onUnmap(entry, model) {
-  		this.service.removeClaimMapping(model, entry.claimType).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+  		this.service.removeClaimMapping(model, entry.claimType)
+  				.toPromise()
+	    	    .then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
   	}
 
 	onMapNewClaim() {
-		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional).subscribe(	  		
-	  		this.ngOnInit()
-	    );
+		this.service.addClaimMapping(this.model, this.chosenClaimType, this.claimIsOptional)
+				.toPromise()
+	    	    .then(() => this.ngOnInit())
+	            .catch(() => this.ngOnInit());  // TODO: Handle Server Errors	        
 	}
 }

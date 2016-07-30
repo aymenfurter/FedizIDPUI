@@ -25,12 +25,11 @@ export class ClaimsComponent {
         this.router.navigate(['/claim', encodeURIComponent(claim.claimType)]);
     }
   
-    onRemove(claim: Claim) {
-        this.claimsService.remove(claim).subscribe(
-              this.claimsService.findAll().subscribe(
-                    data => this.entries = data.claims
-              )
-        );
+    onRemove(claim: Claim) {        
+        this.claimsService.remove(claim)            
+            .toPromise()
+            .then(() => this.ngOnInit())
+            .catch(() => this.ngOnInit());            
     }      
 
     onCreate() {

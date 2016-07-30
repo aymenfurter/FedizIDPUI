@@ -31,11 +31,10 @@ export class ApplicationsComponent {
     }
   
     onRemove(application: Application) {
-        this.service.remove(application).subscribe(
-              this.service.findAll().subscribe(
-                    data => this.entries = data.applications
-              )
-        );
+        this.service.remove(application)
+            .toPromise()
+            .then(() => this.ngOnInit())
+            .catch(() => this.ngOnInit());            
     }      
 
     onCreate() {
