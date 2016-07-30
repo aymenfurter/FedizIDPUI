@@ -60,6 +60,11 @@
                         <form role="form" #loginform="ngForm">
                             <fieldset>
                                 <div class="form-group">
+                                    
+                                    <div [hidden]="errorMsg == null || errorMsg == ''" class="alert alert-danger">
+                                      {{errorMsg}}
+                                    </div>
+
                                     <input class="form-control" placeholder="Username" [(ngModel)]="username"  class="form-control" name="username" #user="ngModel" required autofocus="">
                                     <div [hidden]="user.valid" class="alert alert-warning">
                                       Login name is required

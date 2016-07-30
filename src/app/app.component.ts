@@ -28,13 +28,18 @@ export class AppComponent {
 	private username : string;
 	private password : string;	
 	private userDataWrong : boolean = false;
+  private errorMsg : string;
 
 	onLogin(username, password) {
+
+      // This works fine for the moment. However, for unsuccessful login attempts the browser shows the basic authentication dialog. 
+      // Probably server side changes are required to fix this. (E.g. Switching to custom basic auth headers.)
+
   		this.httpClient.setUsernamePassword(this.username, this.password);  		
-        this.httpClient.get(Consts.URL_PREFIX)
+        this.httpClient.get(Consts.URL_PREFIX + Consts.TEST_URL)
         .toPromise()
-        .then(this.handleSuccess())
-        .catch(this.handleError);                                     
+        .then(() => this.handleSuccess())
+        .catch(() => this.handleError());                                            
   	}
 
     constructor(httpClient: HttpClient, private router: Router) {
@@ -45,13 +50,14 @@ export class AppComponent {
 
   	} 
   
-  	handleSuccess() {
+  	handleSuccess() {          
   		this.userDataWrong = false;
   		this.isLoggedIn = true;            
   	}
 	
-	handleError(error) {      
-		this.userDataWrong = true;
+	handleError() {            
+		  this.userDataWrong = true;
+      this.errorMsg = "An error occurred during the login process. Please check your credentials.";
     }
 	    
 }
