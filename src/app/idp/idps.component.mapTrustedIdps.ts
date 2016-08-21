@@ -15,7 +15,7 @@ export class IdpMapTrustedIdpComponent {
 	private trustedIdps: TrustedIdp[];
 	private chosenTrustedIdp: string;	
   	private sub: any;
-  	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+  	model = new IDP("", "", "", "", "", "", "", "", false, "", "", "", []);
 	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: IDPsService, private trustedIdpsService: TrustedIdpsService) {

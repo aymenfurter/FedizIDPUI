@@ -15,7 +15,7 @@ export class RolesComponent {
 
     constructor(private service:RolesService, private router: Router) {        
     } 
- 
+  
     ngOnInit() {
         this.service.findAll().subscribe(
             data => this.entries = data.roles
