@@ -66,39 +66,36 @@
                             </div>   
                             <div class="form-group">
                                 <label>Certificate password</label>
-                                <input  [(ngModel)]="model.certificatePassword"  class="form-control" name="certificatePassword" #certificatePassword="ngModel" required>                                            
+                                <input [(ngModel)]="model.certificatePassword"  class="form-control" name="certificatePassword" #certificatePassword="ngModel" required>                                            
                                 <div [hidden]="certificatePassword.valid" class="alert alert-warning">
                                   Certificate password is required
                                 </div>
                             </div>   
                             <div class="form-group">
-                                <label>Provide Idp List</label>
-                                <input  [(ngModel)]="model.provideIdpList"  class="form-control" name="provideIdpList" #provideIdpList="ngModel" required>                                            
-                                <div [hidden]="provideIdpList.valid" class="alert alert-warning">
-                                  Provide IDP List is required [True/False]
+                                <label>Settings</label>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="model.provideIdpList" name="provideIdpList" #provideIdpList="ngModel" required>Provide IDP List
+                                    </label>
                                 </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="model.useCurrentIdp"  name="useCurrentIdp" #useCurrentIdp="ngModel" required>Use current IDP
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="model.rpSingleSignOutConfirmation"  name="rpSingleSignOutConfirmation" #rpSingleSignOutConfirmation="ngModel" required>RP SingleSignOut Confirmation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="model.rpSingleSignOutCleanupConfirmation"  name="rpSingleSignOutCleanupConfirmation" #rpSingleSignOutCleanupConfirmation="ngModel" required>RP SingleSignOut Confirmation
+                                    </label>
+                                </div>                        
                             </div>   
-                            <div class="form-group">
-                                <label>Use Current IDP</label>
-                                <input  [(ngModel)]="model.useCurrentIdp"  class="form-control" name="useCurrentIdp" #useCurrentIdp="ngModel" required>                                            
-                                <div [hidden]="useCurrentIdp.valid" class="alert alert-warning">
-                                  Use Current IDP is required [True/False]
-                                </div>
-                            </div>    
-                            <div class="form-group">
-                                <label>RP SingleSignOut Confirmation</label>
-                                <input  [(ngModel)]="model.rpSingleSignOutConfirmation"  class="form-control" name="rpSingleSignOutConfirmation" #rpSingleSignOutConfirmation="ngModel" required>                                            
-                                <div [hidden]="rpSingleSignOutConfirmation.valid" class="alert alert-warning">
-                                  RP SingleSignOut Confirmation is required [True/False]
-                                </div>
-                            </div>    
-                            <div class="form-group">
-                                <label>RP SingleSignOut Cleanup Confirmation</label>
-                                <input  [(ngModel)]="model.rpSingleSignOutCleanupConfirmation"  class="form-control" name="rpSingleSignOutCleanupConfirmation" #rpSingleSignOutCleanupConfirmation="ngModel" required>                                            
-                                <div [hidden]="rpSingleSignOutCleanupConfirmation.valid" class="alert alert-warning">
-                                  RP SingleSignOut Cleanup Confirmation is required [True/False]
-                                </div>
-                            </div>                        
+                            
                             <button [disabled]="!editform.form.valid" type="button" class="btn btn-default" (click)="onPersist(model)">Save</button>                                        
                         </form>
                     </div>

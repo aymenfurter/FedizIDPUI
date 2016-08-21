@@ -10,7 +10,7 @@ import { IDPsService } from './idps-service';
 	providers: [IDPsService]
 })
 export class IDPEditComponent {  	
-	model = new IDP("", "", "", "", "", "", "", "", "", "", "", "", []);
+	model = new IDP("", "", "", "", "", "", "", "", false, false, false, false, []);
 	private errorMsg: string;
 
 	createEntry = false;

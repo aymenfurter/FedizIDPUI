@@ -53,7 +53,12 @@
                             </div> 
                             <div class="form-group">
                                 <label>Trust type</label>
-                                <input [(ngModel)]="model.trustType" class="form-control" name="trustType" #trustType="ngModel" required>                                            
+
+                                <select class="form-control" [(ngModel)]="model.trustType" name="trustType" #trustType="ngModel" required>
+                                    <option value="CHAIN_TRUST">Chain Trust</option>                               
+                                    <option value="CHAIN_TRUST_CONSTRAINTS">Chain Trust Constraints</option>                               
+                                    <option value="PEER_TRUST">Peer Trust</option>                               
+                                </select>                                            
                                 <div [hidden]="trustType.valid" class="alert alert-warning">
                                   Trust Type is required
                                 </div>
@@ -67,18 +72,25 @@
                             </div> 
                             <div class="form-group">
                                 <label>Federation type</label>
-                                <input [(ngModel)]="model.federationType" class="form-control" name="federationType" #federationType="ngModel" required>                                            
+                                 <select class="form-control" [(ngModel)]="model.federationType" name="federationType" #federationType="ngModel" required>
+                                    <option value="FEDERATE_IDENTITY">Federate Identity</option>                               
+                                    <option value="FEDERATE_CLAIMS">Federate Claims</option>                                                                   
+                                </select>     
+
                                 <div [hidden]="federationType.valid" class="alert alert-warning">
                                   Federation Type is required
                                 </div>
                             </div> 
+
                             <div class="form-group">
-                                <label>Cache tokens</label>
-                                <input [(ngModel)]="model.cacheTokens" class="form-control" name="cacheTokens" #cacheTokens="ngModel" required>                                            
-                                <div [hidden]="cacheTokens.valid" class="alert alert-warning">
-                                  Cache Token is required [True/False]
-                                </div>
-                            </div> 
+                                <label>Settings</label>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="model.cacheTokens" name="cacheTokens" #cacheTokens="ngModel" required>Cache Token
+                                    </label>
+                                </div>                                        
+                            </div>  
 
 
                             <button [disabled]="!editform.form.valid" type="button" class="btn btn-default" (click)="onPersist(model)">Save</button>                                        

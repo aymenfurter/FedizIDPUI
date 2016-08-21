@@ -11,10 +11,10 @@ export class IDP {
     	public stsUrl: string,    	
     	public certificate: string,
     	public certificatePassword: string,    	
-    	public provideIdpList: string,
-    	public useCurrentIdp: string,    	
-    	public rpSingleSignOutCleanupConfirmation: string,        	
-    	public rpSingleSignOutConfirmation: string,
+    	public provideIdpList: boolean,
+    	public useCurrentIdp: boolean,    	
+    	public rpSingleSignOutCleanupConfirmation: boolean,        	
+    	public rpSingleSignOutConfirmation: boolean,
   	    public claimTypesOffered: Claim[]
 
   	) {  }

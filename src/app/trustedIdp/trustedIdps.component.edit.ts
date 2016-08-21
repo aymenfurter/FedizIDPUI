@@ -11,7 +11,7 @@ import { TrustedIdpsService } from './trustedIdps-service';
 })
 export class TrustedIdpEditComponent {  	
 	private errorMsg: string;
-	model = new TrustedIdp("", "", "", "", "", "", "", "", true);
+	model = new TrustedIdp("", "", "", "", "http://docs.oasis-open.org/wsfed/federation/200706", "", "", "", true);
 	createEntry = false;
 	submitted = false; 	
   	private sub: any;
