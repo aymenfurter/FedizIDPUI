@@ -16,7 +16,7 @@ export class IdpMapClaimsComponent {
 	private chosenClaimType: string;
 	private claimIsOptional: boolean;
   	private sub: any;
-  	model = new IDP("", "", "", "", "", "", "", "", false, "", "", "", []);
+  	model = new IDP("", "", "", "", "", "", "", "", false, false, false, false, []);
 	private errorMsg: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private service: IDPsService, private claimsService: ClaimsService) {
