@@ -1,6 +1,6 @@
 # Fediz IDP UI
 
-This software is in Proof of Concept state! Any liability is excluded.
+This software is in Proof of Concept state! Any liability is excluded. Use on your own risk.
 
 A User Interface for the Apache CXF Fediz IDP Rest Interface based on Angular 2, SB-Admin 2, Twitter Bootstrap and TypeScript.
 
@@ -9,6 +9,10 @@ Known Issues:
     - Login not yet fully implemented / working.
     - Data does not getting refreshed consistently.
 
+## Preview
+![alt tag](http://aymenfurter.ch/idpui1.png)
+![alt tag](http://aymenfurter.ch/idpui2.png)
+![alt tag](http://aymenfurter.ch/idpui3.png)
 
 ## Development server
 The app needs to be built using the command "npm install". After that, it expects to be run on an application server having fediz idp installed at in the context fediz-idp.
